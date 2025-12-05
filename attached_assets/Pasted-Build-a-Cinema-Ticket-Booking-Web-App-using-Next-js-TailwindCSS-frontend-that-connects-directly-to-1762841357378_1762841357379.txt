@@ -1,0 +1,222 @@
+Build a Cinema Ticket Booking Web App using Next.js + TailwindCSS frontend that connects directly to Supabase (no backend server).
+
+This app should implement two roles: user and admin.
+
+Use Supabase for:
+
+Database (based on ERD I describe below)
+
+Auth (email/password)
+
+Storage (for payment proof uploads)
+
+📦 Database Schema (Supabase)
+
+profiles
+
+id (pk)
+
+email
+
+name
+
+role (user/admin)
+
+films
+
+id (pk)
+
+title
+
+genre
+
+duration_min
+
+description
+
+poster_url
+
+rating
+
+studios
+
+id (pk)
+
+name
+
+capacity
+
+showtimes
+
+id (pk)
+
+film_id (fk)
+
+studio_id (fk)
+
+date
+
+time
+
+price
+
+bookings
+
+id (pk)
+
+user_id (fk)
+
+showtime_id (fk)
+
+status (Pending/Confirmed/Rejected/Expired)
+
+payment_proof_url
+
+total_price
+
+seats
+
+id (pk)
+
+studio_id (fk)
+
+seat_number
+
+booking_seats
+
+id (pk)
+
+booking_id (fk)
+
+seat_id (fk)
+
+seat_statuses
+
+id (pk)
+
+seat_id (fk)
+
+showtime_id (fk)
+
+status (Available/Pending/Booked)
+
+🎯 Features
+User Side
+
+Register/Login (Supabase Auth)
+
+View films (title, genre, rating, duration, poster)
+
+View film detail + available showtimes
+
+Choose seat → seat status = Pending
+
+Upload payment proof (upload to Supabase Storage)
+
+View booking status list (Pending, Confirmed, Rejected, Expired)
+
+Admin Side
+
+Login (role = admin)
+
+Manage films (CRUD)
+
+Manage showtimes (CRUD)
+
+View pending bookings, see uploaded proof
+
+Confirm/Reject bookings
+→ If Confirmed → seat = Booked
+→ If Rejected/Expired → seat = Available
+
+🧩 Pages to Generate
+
+/login
+
+/register
+
+/films
+
+/films/[id] → detail + choose schedule
+
+/select-seats/[showtimeId]
+
+/checkout
+
+/my-bookings
+
+/admin/dashboard
+
+/admin/films
+
+/admin/showtimes
+
+⚙️ Step-by-step Connection to Supabase
+
+Create project in Supabase.io
+
+Go to Project Settings → API and copy:
+
+Project URL
+
+anon/public key
+
+In Replit, create .env file with:
+
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
+
+Run:
+
+npm install @supabase/supabase-js
+
+
+Create a file lib/supabaseClient.js:
+
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+
+Use supabase.from('table').select(), .insert(), .update() etc. for data operations.
+
+For Auth, use:
+
+const { data, error } = await supabase.auth.signInWithPassword({
+  email, password
+})
+
+
+For file uploads (payment proof):
+
+await supabase.storage.from('payment_proofs').upload(`proofs/${user.id}-${Date.now()}.jpg`, file)
+
+
+For seat booking logic:
+
+When user selects seat → seat_statuses.status = 'Pending'
+
+On admin confirm → Booked
+
+On reject/expired → revert to Available
+
+🎨 Design
+
+Use TailwindCSS for styling
+
+Keep UI minimal: cards for films, table for admin bookings
+
+Seat selection = grid layout with color-coded statuses
+(green=Available, yellow=Pending, red=Booked)
+
+💾 Output Expectation
+
+Fully working Next.js + Tailwind + Supabase frontend project
+
+Functional login/register and film display
+
+Ability to book seats and upload payment proof
+
+Admin dashboard for confirming bookings
