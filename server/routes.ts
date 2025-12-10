@@ -137,5 +137,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/bookings", async (req, res) => {
+    const userId = req.query.user_id as string;
+    if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+    const bookings = await storage.getUserBookings(userId);
+    res.json(bookings);
+  });
+
   return httpServer;
 }

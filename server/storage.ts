@@ -177,10 +177,41 @@ export class JsonStorage {
             showtime: showtime ? { ...showtime, film } : null,
             booking_seats: db.booking_seats
               .filter((bs: any) => bs.booking_id === b.id)
-              .map((bs: any) => ({
-                 ...bs,
-                 seat: { seat_number: bs.seat_id.split('-')[1] || '??' } 
-              }))
+              .map((bs: any) => {
+                 // FIX: Handle cases where ID might not have a hyphen
+                 const parts = bs.seat_id.split('-');
+                 const seatNum = parts.length > 1 ? parts[1] : bs.seat_id;
+                 return {
+                   ...bs,
+                   seat: { seat_number: seatNum }
+                 };
+              })
+        };
+    });
+  }
+
+  async getUserBookings(userId: string) {
+    const db = await this.readDb();
+    // Filter bookings by user_id
+    const userBookings = db.bookings.filter((b: any) => b.user_id === userId);
+
+    return userBookings.map((b: any) => {
+        const showtime = db.showtimes.find((s: any) => s.id === b.showtime_id);
+        const film = showtime ? db.films.find((f: any) => f.id === showtime.film_id) : null;
+        
+        return {
+            ...b,
+            showtime: showtime ? { ...showtime, film } : null,
+            booking_seats: db.booking_seats
+              .filter((bs: any) => bs.booking_id === b.id)
+              .map((bs: any) => {
+                 const parts = bs.seat_id.split('-');
+                 const seatNum = parts.length > 1 ? parts[1] : bs.seat_id;
+                 return {
+                   ...bs,
+                   seat: { seat_number: seatNum }
+                 };
+              })
         };
     });
   }
@@ -288,7 +319,7 @@ export class JsonStorage {
       pendingBookings: db.bookings.filter((b: any) => b.status === 'Pending').length
     };
   }
-  
+
   async initializeSeats() {
     const db = await this.readDb();
     
