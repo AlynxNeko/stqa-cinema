@@ -6,7 +6,8 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { supabase, Booking } from '@/lib/supabase';
+// import { supabase, Booking } from '@/lib/supabase';
+import { api, supabase, Booking } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth-context';
 
 export default function MyBookings() {
@@ -16,15 +17,7 @@ export default function MyBookings() {
   const { data: bookings, isLoading } = useQuery<Booking[]>({
     queryKey: ['/api/bookings', user?.id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('bookings')
-        .select(`
-          *,
-          showtime:showtimes(*, film:films(*), studio:studios(*)),
-          booking_seats(*, seat:seats(*))
-        `)
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false });
+      const { data, error } = await api.get(`/api/bookings?user_id=${user?.id}`);
       
       if (error) throw error;
       return data || [];

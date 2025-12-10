@@ -6,7 +6,8 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { supabase, Film } from '@/lib/supabase';
+// import { supabase, Film } from '@/lib/supabase';
+import { api, Film } from '@/lib/supabase';
 import { format, addDays } from 'date-fns';
 import {
   Carousel,
@@ -30,13 +31,15 @@ export default function Films() {
     queryKey: ['/api/films'],
     queryFn: async () => {
       // 1. Fetch all films
-      const { data: filmsData, error: filmsError } = await supabase
-        .from('films')
-        .select('*')
-        .order('rating', { ascending: false });
+      // const { data: filmsData, error: filmsError } = await supabase
+      //   .from('films')
+      //   .select('*')
+      //   .order('rating', { ascending: false });
 
-      if (filmsError) throw filmsError;
-      const allFilms: Film[] = filmsData || [];
+      // if (filmsError) throw filmsError;
+      // const allFilms: Film[] = filmsData || [];
+      
+      const allFilms = await api.get('/api/films');
 
       // 2. Fetch showtimes for the next 7 days
       const today = new Date();
@@ -45,11 +48,7 @@ export default function Films() {
       const startDate = format(today, 'yyyy-MM-dd');
       const endDate = format(nextWeek, 'yyyy-MM-dd');
 
-      const { data: upcomingShowtimes, error: showtimesError } = await supabase
-        .from('showtimes')
-        .select('film_id')
-        .gte('date', startDate)
-        .lte('date', endDate);
+      const { data: upcomingShowtimes, error: showtimesError } = await api.get(`/api/showtimes?start_date=${startDate}&end_date=${endDate}`);
 
       if (showtimesError) throw showtimesError;
 

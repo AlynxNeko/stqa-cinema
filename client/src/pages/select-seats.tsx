@@ -6,7 +6,8 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase, Showtime, SeatStatus } from '@/lib/supabase';
+// import { supabase, Showtime, SeatStatus } from '@/lib/supabase';
+import { api, supabase, Showtime, SeatStatus } from '@/lib/supabase';
 import { format } from 'date-fns';
 
 export default function SelectSeats() {
@@ -18,11 +19,7 @@ export default function SelectSeats() {
   const { data: showtime } = useQuery<Showtime>({
     queryKey: ['/api/showtimes', showtimeId],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('showtimes')
-        .select('*, film:films(*), studio:studios(*)')
-        .eq('id', showtimeId)
-        .single();
+      const { data, error } = await api.get(`/api/showtimes/${showtimeId}`);
       
       if (error) throw error;
       return data;
@@ -33,10 +30,7 @@ export default function SelectSeats() {
   const { data: seatStatuses, isLoading } = useQuery<SeatStatus[]>({
     queryKey: ['/api/seat-statuses', showtimeId],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('seat_statuses')
-        .select('*, seat:seats(*)')
-        .eq('showtime_id', showtimeId);
+      const { data, error } = await api.get(`/api/seat-statuses?showtime_id=${showtimeId}`);
       
       if (error) throw error;
       return data || [];

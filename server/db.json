@@ -1,0 +1,45 @@
+{
+  "users": [
+    {
+      "id": "admin-id",
+      "email": "admin@cinema.com",
+      "password": "adminbiasa",
+      "name": "Admin Cinema",
+      "role": "admin"
+    },
+    {
+      "id": "user-id",
+      "email": "user@gmail.com",
+      "password": "userbiasa",
+      "name": "User Biasa",
+      "role": "user"
+    }
+  ],
+  "films": [
+    {
+      "id": "1",
+      "title": "Inception",
+      "genre": "Sci-Fi",
+      "duration_min": 148,
+      "description": "A thief who steals corporate secrets through the use of dream-sharing technology.",
+      "poster_url": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+      "rating": 8.8
+    }
+  ],
+  "studios": [
+    { "id": "1", "name": "Studio 1", "capacity": 50 },
+    { "id": "2", "name": "Studio 2", "capacity": 30 }
+  ],
+  "showtimes": [
+    {
+      "id": "1",
+      "film_id": "1",
+      "studio_id": "1",
+      "date": "2025-05-20",
+      "time": "14:00",
+      "price": 50000
+    }
+  ],
+  "bookings": [],
+  "seat_statuses": []
+}

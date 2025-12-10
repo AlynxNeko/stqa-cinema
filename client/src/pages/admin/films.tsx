@@ -24,7 +24,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { supabase, Film } from '@/lib/supabase';
+// import { supabase, Film } from '@/lib/supabase';
+import { api, Film } from '@/lib/supabase';
 import { queryClient } from '@/lib/queryClient';
 
 export default function AdminFilms() {
@@ -35,26 +36,14 @@ export default function AdminFilms() {
   const { data: films, isLoading } = useQuery<Film[]>({
     queryKey: ['/api/films'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('films')
-        .select('*')
-        .order('title', { ascending: true });
-      
-      if (error) throw error;
-      return data || [];
+      // Panggil API endpoint kita, bukan supabase
+      return await api.get('/api/films');
     },
   });
 
   const createFilm = useMutation({
     mutationFn: async (filmData: Partial<Film>) => {
-      const { data, error } = await supabase
-        .from('films')
-        .insert(filmData)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+      return await api.post('/api/films', filmData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
@@ -67,16 +56,10 @@ export default function AdminFilms() {
   });
 
   const updateFilm = useMutation({
-    mutationFn: async ({ id, ...filmData }: Partial<Film>) => {
-      const { data, error } = await supabase
-        .from('films')
-        .update(filmData)
-        .eq('id', id)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+    mutationFn: async (filmData: Film) => {
+      // Karena kita tidak punya endpoint update di server, kita hapus dan buat ulang
+      await api.delete(`/api/films/${filmData.id}`);
+      return await api.post('/api/films', filmData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
@@ -91,8 +74,7 @@ export default function AdminFilms() {
 
   const deleteFilm = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from('films').delete().eq('id', id);
-      if (error) throw error;
+      return await api.delete(`/api/films/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
