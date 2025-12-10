@@ -1,134 +1,72 @@
-# CinemaBook - Cinema Ticket Booking System
+# CinemaBook 🎬
 
-A beautiful, full-featured cinema ticket booking web application built with React, TypeScript, TailwindCSS, and Supabase.
+A full-stack cinema ticket booking web application built with React, TypeScript, TailwindCSS, and Supabase.
 
-## Features
+![Project Status](https://img.shields.io/badge/status-active-success.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-### User Features
-- 🎬 **Browse Films** - View all available movies with beautiful card layouts
-- 📅 **View Showtimes** - See available screening times organized by date
-- 💺 **Interactive Seat Selection** - Pick your seats with real-time availability status
-- 💳 **Payment Proof Upload** - Upload payment confirmation screenshots
-- 📋 **Booking History** - Track all your bookings and their status
-- 🔐 **Secure Authentication** - Email and password authentication via Supabase
+## 📖 Overview
 
-### Admin Features
-- 🎥 **Film Management** - Add, edit, and remove films
-- 🕐 **Showtime Management** - Schedule new showtimes
-- ✅ **Booking Verification** - Review payment proofs and confirm/reject bookings
-- 📊 **Dashboard** - View statistics and quick actions
-- 🎫 **Automatic Seat Management** - Seat statuses update automatically
+CinemaBook is a modern web platform that streamlines the movie ticket booking process. It features a responsive user interface for browsing films and selecting seats in real-time, alongside a powerful admin dashboard for managing cinema operations.
 
-## Tech Stack
+## ✨ Features
 
-- **Frontend**: React, TypeScript, TailwindCSS, Wouter (routing)
-- **Backend**: Supabase (Authentication, Database, Storage)
-- **UI Components**: Shadcn/ui
-- **State Management**: TanStack Query
-- **Forms**: React Hook Form with Zod validation
+### 👤 For Users
+* **Authentication**: Secure user registration and login.
+* **Film Browsing**: Explore movies with advanced search and genre filters.
+* **Interactive Seat Selection**: Visual seat map with real-time availability updates.
+* **Booking System**: easy checkout process with payment proof upload.
+* **My Bookings**: Dashboard to track booking history and status.
 
-## Getting Started
+### 🛡️ For Admins
+* **Dashboard**: Overview statistics of films, bookings, and revenue.
+* **Film Management**: Add, edit, and publish films with poster uploads.
+* **Showtime Scheduling**: Manage screening times and studio assignments.
+* **Booking Verification**: Review payment proofs and approve/reject reservations.
 
-### Prerequisites
+## 🛠️ Tech Stack
 
-1. A Supabase account (free tier works great!)
-2. Node.js installed
+**Frontend**
+* React 18 & TypeScript
+* Vite
+* Tailwind CSS & Shadcn/ui
+* TanStack Query
+* Wouter (Routing)
 
-### Step 1: Set Up Supabase Database
+**Backend**
+* Node.js & Express
+* Supabase (Auth, Database, Storage)
+* Drizzle ORM
+* PostgreSQL
 
-Follow the comprehensive instructions in **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)**
+## 🚀 Getting Started
 
-This will:
-- Create all necessary database tables
-- Set up Row Level Security policies
-- Create sample data (films, studios, showtimes)
-- Configure the storage bucket for payment proofs
+### Installation
 
-### Step 2: Configure Environment Variables
+Install the project dependencies:
 
-Your Supabase credentials are already configured in `client/src/config.ts`. The values have been set from your Replit Secrets during initial setup.
+```bash
+npm install
+```
 
-If you need to update them:
-1. Edit `client/src/config.ts`
-2. Replace the `url` and `anonKey` values with your new Supabase credentials
+### Running the App
 
-### Step 3: Run the Application
+Start the development server:
 
-The application is already running! Just click the "Open in new tab" button to view it.
+```bash
+npm run dev
+```
 
-### Step 4: Create Your First Admin User
+The application will start, and you can access it in your browser (typically at `http://localhost:5000` or the port shown in your terminal).
 
-1. Register a new account through the login page
-2. In Supabase SQL Editor, run:
-   ```sql
-   UPDATE profiles SET role = 'admin' WHERE email = 'your-email@example.com';
-   ```
-3. Log out and log back in to access the admin panel at `/admin/dashboard`
+## 📜 Scripts
 
-## User Journey
+* `npm run dev`: Starts the development server with hot-reload.
+* `npm run build`: Builds the frontend and server for production.
+* `npm start`: Runs the production server.
+* `npm run check`: Runs TypeScript type checking.
+* `npm run db:push`: Pushes schema changes to the database (Drizzle).
 
-### For Movie-Goers
+## 📄 License
 
-1. **Register/Login** → Create an account or sign in
-2. **Browse Films** → See all available movies
-3. **Select Showtime** → Choose your preferred date and time
-4. **Pick Seats** → Interactive seat selection with real-time availability
-5. **Upload Payment Proof** → Upload your payment screenshot
-6. **Track Booking** → View status in "My Bookings" (Pending/Confirmed/Rejected)
-
-### For Cinema Admins
-
-1. **Login** → Use admin account credentials
-2. **Manage Films** → Add new releases, update information
-3. **Schedule Showtimes** → Create screening schedules
-4. **Review Bookings** → View payment proofs and confirm/reject bookings
-5. **Dashboard** → Monitor operations with statistics
-
-## Database Schema
-
-### Core Tables
-
-- **profiles** - User accounts with roles (user/admin)
-- **films** - Movie information (title, genre, duration, poster, rating)
-- **studios** - Cinema halls with seating capacity
-- **showtimes** - Screening schedules linking films and studios
-- **bookings** - Customer reservations with payment proofs
-- **seats** - Individual seats in each studio
-- **booking_seats** - Junction table for booking-seat relationships
-- **seat_statuses** - Real-time seat availability per showtime
-
-## Design Principles
-
-This application follows professional booking platform design guidelines:
-
-- **Clean Typography** - Inter font family for readability
-- **Consistent Spacing** - Tailwind units (2, 4, 6, 8) used throughout
-- **Beautiful Cards** - Film posters with hover effects
-- **Responsive Design** - Mobile-first approach
-- **Clear Status Indicators** - Color-coded badges for booking status
-- **Accessible UI** - Proper labels, ARIA attributes, keyboard navigation
-
-## Seat Status System
-
-- **Available** (border outline) - Ready to book
-- **Pending** (pattern fill) - Payment submitted, awaiting confirmation
-- **Booked** (solid fill) - Confirmed and unavailable
-- **Selected** (thick border) - Currently being selected by user
-
-## Security
-
-- **Row Level Security (RLS)** - Database-level access control
-- **Authentication** - Supabase Auth with email/password
-- **Role-Based Access** - Admin features protected
-- **Secure Storage** - Payment proofs stored in Supabase Storage
-
-## Support
-
-Need help? Check these resources:
-- [Supabase Documentation](https://supabase.com/docs)
-- [TailwindCSS Docs](https://tailwindcss.com/docs)
-- [Shadcn/ui Components](https://ui.shadcn.com)
-
----
-
-**Built with ❤️ for seamless cinema ticket booking**
+This project is licensed under the [MIT License](LICENSE).
