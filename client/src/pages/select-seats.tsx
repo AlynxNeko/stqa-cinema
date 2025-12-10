@@ -6,8 +6,7 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-// import { supabase, Showtime, SeatStatus } from '@/lib/supabase';
-import { api, supabase, Showtime, SeatStatus } from '@/lib/supabase';
+import { api, Showtime, SeatStatus } from '@/lib/supabase';
 import { format } from 'date-fns';
 
 export default function SelectSeats() {
@@ -16,24 +15,21 @@ export default function SelectSeats() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [, setLocation] = useLocation();
 
-  const { data: showtime } = useQuery<Showtime>({
+  const { data: showtime, isLoading: showtimeLoading } = useQuery<Showtime>({
     queryKey: ['/api/showtimes', showtimeId],
     queryFn: async () => {
-      const { data, error } = await api.get(`/api/showtimes/${showtimeId}`);
-      
-      if (error) throw error;
-      return data;
+      // FIX 1: Langsung return hasil api.get (Jangan pakai { data, error })
+      return await api.get(`/api/showtimes/${showtimeId}`);
     },
     enabled: !!showtimeId,
   });
 
-  const { data: seatStatuses, isLoading } = useQuery<SeatStatus[]>({
+  const { data: seatStatuses, isLoading: seatsLoading } = useQuery<SeatStatus[]>({
     queryKey: ['/api/seat-statuses', showtimeId],
     queryFn: async () => {
-      const { data, error } = await api.get(`/api/seat-statuses?showtime_id=${showtimeId}`);
-      
-      if (error) throw error;
-      return data || [];
+      // FIX 2: Langsung return hasil api.get
+      const res = await api.get(`/api/seat-statuses?showtime_id=${showtimeId}`);
+      return res || [];
     },
     enabled: !!showtimeId,
     refetchInterval: 3000,
@@ -63,8 +59,11 @@ export default function SelectSeats() {
   };
 
   const totalSeats = showtime?.studio?.capacity || 0;
-  const rows = Math.ceil(totalSeats / 10);
+  // Default ke 1 baris jika data belum siap, agar tidak error loop
+  const rows = totalSeats > 0 ? Math.ceil(totalSeats / 10) : 0;
   const seatsPerRow = 10;
+
+  const isLoading = showtimeLoading || seatsLoading;
 
   return (
     <div className="min-h-screen bg-background">
@@ -123,11 +122,20 @@ export default function SelectSeats() {
                           <span className="text-xs font-mono text-muted-foreground w-3 sm:w-4 flex-shrink-0">{rowLetter}</span>
                           <div className="flex gap-1 sm:gap-2">
                             {[...Array(seatsPerRow)].map((_, seatIndex) => {
+                              // Stop jika melebihi kapasitas studio
+                              if ((rowIndex * seatsPerRow + seatIndex + 1) > totalSeats) return null;
+
                               const seatNumber = `${rowLetter}${seatIndex + 1}`;
+                              
+                              // Logic find seat status
                               const seatObj = seatStatuses?.find(
                                 (s) => s.seat?.seat_number === seatNumber
                               );
-                              const seatId = seatObj?.seat_id || '';
+                              
+                              // FIX 3: Fallback ID jika DB kosong (Penting untuk db.json!)
+                              // Format: STUDIO_ID-SEAT_NUMBER (contoh: 1-A1)
+                              const seatId = seatObj?.seat_id || `${showtime?.studio_id}-${seatNumber}`;
+                              
                               const status = getSeatStatus(seatId);
                               const isSelected = selectedSeats.includes(seatId);
                               const isDisabled = status === 'Booked' || status === 'Pending';
@@ -169,7 +177,7 @@ export default function SelectSeats() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4">Booking Summary</h3>
                 
-                {showtime && (
+                {showtime && showtime.date ? (
                   <div className="space-y-4 mb-6">
                     <div>
                       <p className="text-sm text-muted-foreground">Film</p>
@@ -178,6 +186,7 @@ export default function SelectSeats() {
                     <div>
                       <p className="text-sm text-muted-foreground">Date & Time</p>
                       <p className="font-semibold">
+                        {/* Error terjadi di sini sebelumnya karena showtime.date undefined */}
                         {format(new Date(showtime.date), 'EEEE, MMM d, yyyy')}
                       </p>
                       <p className="text-sm">{showtime.time}</p>
@@ -191,10 +200,11 @@ export default function SelectSeats() {
                       {selectedSeats.length > 0 ? (
                         <div className="flex flex-wrap gap-1 mt-1">
                           {selectedSeats.map((seatId) => {
-                            const seat = seatStatuses?.find((s) => s.seat_id === seatId)?.seat;
+                            // Parse nomor kursi dari ID jika seatObj tidak ketemu
+                            const seatName = seatId.split('-')[1] || seatId;
                             return (
                               <Badge key={seatId} variant="secondary">
-                                {seat?.seat_number}
+                                {seatName}
                               </Badge>
                             );
                           })}
@@ -218,6 +228,10 @@ export default function SelectSeats() {
                       </div>
                     </div>
                   </div>
+                ) : (
+                    <div className="py-4 text-center text-muted-foreground">
+                        Loading summary...
+                    </div>
                 )}
 
                 <Button

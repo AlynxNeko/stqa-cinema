@@ -6,8 +6,7 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-// import { supabase, Film, Showtime } from '@/lib/supabase';
-import { api, supabase, Film, Showtime } from '@/lib/supabase';
+import { api, Film, Showtime } from '@/lib/supabase';
 
 export default function FilmDetail() {
   const [, params] = useRoute('/films/:id');
@@ -16,10 +15,8 @@ export default function FilmDetail() {
   const { data: film, isLoading: filmLoading } = useQuery<Film>({
     queryKey: ['/api/films', filmId],
     queryFn: async () => {
-      const { data, error } = await api.get(`/api/films/${filmId}`);
-      
-      if (error) throw error;
-      return data;
+      // FIX: Langsung return hasil api.get
+      return await api.get(`/api/films/${filmId}`);
     },
     enabled: !!filmId,
   });
@@ -27,10 +24,8 @@ export default function FilmDetail() {
   const { data: showtimes, isLoading: showtimesLoading } = useQuery<Showtime[]>({
     queryKey: ['/api/showtimes', filmId],
     queryFn: async () => {
-      const { data, error } = await api.get(`/api/showtimes?film_id=${filmId}`);
-      
-      if (error) throw error;
-      return data || [];
+      // FIX: Langsung return hasil api.get
+      return await api.get(`/api/showtimes?film_id=${filmId}`);
     },
     enabled: !!filmId,
   });

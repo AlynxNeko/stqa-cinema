@@ -27,8 +27,16 @@
     }
   ],
   "studios": [
-    { "id": "1", "name": "Studio 1", "capacity": 50 },
-    { "id": "2", "name": "Studio 2", "capacity": 30 }
+    {
+      "id": "1",
+      "name": "Studio 1",
+      "capacity": 50
+    },
+    {
+      "id": "2",
+      "name": "Studio 2",
+      "capacity": 30
+    }
   ],
   "showtimes": [
     {
@@ -38,6 +46,14 @@
       "date": "2025-05-20",
       "time": "14:00",
       "price": 50000
+    },
+    {
+      "film_id": "1",
+      "studio_id": "1",
+      "date": "2025-12-11",
+      "time": "12:30",
+      "price": 35000,
+      "id": "br8j225tl"
     }
   ],
   "bookings": [],
