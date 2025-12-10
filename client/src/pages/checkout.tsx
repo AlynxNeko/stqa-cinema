@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { api, Showtime, Seat } from '@/lib/supabase'; // Hapus import supabase
+import { api, Showtime, Seat } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth-context';
 
 export default function Checkout() {
@@ -26,7 +26,6 @@ export default function Checkout() {
   const { data: showtime } = useQuery<Showtime>({
     queryKey: ['/api/showtimes', showtimeId],
     queryFn: async () => {
-      // FIX: Gunakan api.get, bukan supabase
       return await api.get(`/api/showtimes/${showtimeId}`);
     },
     enabled: !!showtimeId,
@@ -35,7 +34,6 @@ export default function Checkout() {
   const { data: seats } = useQuery<Seat[]>({
     queryKey: ['/api/seats', seatIds],
     queryFn: async () => {
-      // FIX: Panggil endpoint batch yang baru dibuat di server
       return await api.post('/api/seats/batch', { ids: seatIds });
     },
     enabled: seatIds.length > 0,
@@ -47,12 +45,10 @@ export default function Checkout() {
         throw new Error('Missing required data');
       }
 
-      // MOCK UPLOAD: Generate fake URL karena tidak ada storage server
       const fakePaymentProofUrl = `https://placehold.co/400x600?text=Proof+of+${user.name}`;
       
       const totalPrice = (showtime?.price || 0) * seatIds.length;
 
-      // FIX: Kirim data ke endpoint /api/bookings
       const bookingData = {
         user_id: user.id,
         showtime_id: showtimeId,
@@ -165,9 +161,9 @@ export default function Checkout() {
                     </div>
                   </div>
                   <div className="pt-4 border-t space-y-2">
-                    <div className="flex justify-between"><span className="text-muted-foreground">Price per seat</span><span>Rp {showtime.price.toLocaleString('id-ID')}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Price per seat</span><span>Rp {(showtime.price || 0).toLocaleString('id-ID')}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Seats</span><span>{seatIds.length}</span></div>
-                    <div className="flex justify-between text-lg font-bold pt-2 border-t"><span>Total</span><span>Rp {(seatIds.length * showtime.price).toLocaleString('id-ID')}</span></div>
+                    <div className="flex justify-between text-lg font-bold pt-2 border-t"><span>Total</span><span>Rp {(seatIds.length * (showtime.price || 0)).toLocaleString('id-ID')}</span></div>
                   </div>
                 </div>
               )}

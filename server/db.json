@@ -56,6 +56,454 @@
       "id": "br8j225tl"
     }
   ],
-  "bookings": [],
-  "seat_statuses": []
+  "bookings": [
+    {
+      "id": "4j5gkx10c",
+      "user_id": "user-id",
+      "showtime_id": "1",
+      "status": "Pending",
+      "payment_proof_url": "https://placehold.co/400x600?text=Proof+of+User Biasa",
+      "total_price": 150000,
+      "created_at": "2025-12-10T06:47:16.363Z"
+    }
+  ],
+  "seat_statuses": [
+    {
+      "id": "c5x7g3g9z",
+      "seat_id": "1_A3",
+      "showtime_id": "1",
+      "status": "Pending"
+    },
+    {
+      "id": "3z52706cv",
+      "seat_id": "1_A5",
+      "showtime_id": "1",
+      "status": "Pending"
+    },
+    {
+      "id": "khqtrolfz",
+      "seat_id": "1_A7",
+      "showtime_id": "1",
+      "status": "Pending"
+    }
+  ],
+  "booking_seats": [
+    {
+      "id": "wq2bal720",
+      "booking_id": "4j5gkx10c",
+      "seat_id": "1_A3"
+    },
+    {
+      "id": "irw90tk2m",
+      "booking_id": "4j5gkx10c",
+      "seat_id": "1_A5"
+    },
+    {
+      "id": "dicl3to8t",
+      "booking_id": "4j5gkx10c",
+      "seat_id": "1_A7"
+    }
+  ],
+  "seats": [
+    {
+      "id": "1_A1",
+      "studio_id": "1",
+      "seat_number": "A1"
+    },
+    {
+      "id": "1_A2",
+      "studio_id": "1",
+      "seat_number": "A2"
+    },
+    {
+      "id": "1_A3",
+      "studio_id": "1",
+      "seat_number": "A3"
+    },
+    {
+      "id": "1_A4",
+      "studio_id": "1",
+      "seat_number": "A4"
+    },
+    {
+      "id": "1_A5",
+      "studio_id": "1",
+      "seat_number": "A5"
+    },
+    {
+      "id": "1_A6",
+      "studio_id": "1",
+      "seat_number": "A6"
+    },
+    {
+      "id": "1_A7",
+      "studio_id": "1",
+      "seat_number": "A7"
+    },
+    {
+      "id": "1_A8",
+      "studio_id": "1",
+      "seat_number": "A8"
+    },
+    {
+      "id": "1_A9",
+      "studio_id": "1",
+      "seat_number": "A9"
+    },
+    {
+      "id": "1_A10",
+      "studio_id": "1",
+      "seat_number": "A10"
+    },
+    {
+      "id": "1_B1",
+      "studio_id": "1",
+      "seat_number": "B1"
+    },
+    {
+      "id": "1_B2",
+      "studio_id": "1",
+      "seat_number": "B2"
+    },
+    {
+      "id": "1_B3",
+      "studio_id": "1",
+      "seat_number": "B3"
+    },
+    {
+      "id": "1_B4",
+      "studio_id": "1",
+      "seat_number": "B4"
+    },
+    {
+      "id": "1_B5",
+      "studio_id": "1",
+      "seat_number": "B5"
+    },
+    {
+      "id": "1_B6",
+      "studio_id": "1",
+      "seat_number": "B6"
+    },
+    {
+      "id": "1_B7",
+      "studio_id": "1",
+      "seat_number": "B7"
+    },
+    {
+      "id": "1_B8",
+      "studio_id": "1",
+      "seat_number": "B8"
+    },
+    {
+      "id": "1_B9",
+      "studio_id": "1",
+      "seat_number": "B9"
+    },
+    {
+      "id": "1_B10",
+      "studio_id": "1",
+      "seat_number": "B10"
+    },
+    {
+      "id": "1_C1",
+      "studio_id": "1",
+      "seat_number": "C1"
+    },
+    {
+      "id": "1_C2",
+      "studio_id": "1",
+      "seat_number": "C2"
+    },
+    {
+      "id": "1_C3",
+      "studio_id": "1",
+      "seat_number": "C3"
+    },
+    {
+      "id": "1_C4",
+      "studio_id": "1",
+      "seat_number": "C4"
+    },
+    {
+      "id": "1_C5",
+      "studio_id": "1",
+      "seat_number": "C5"
+    },
+    {
+      "id": "1_C6",
+      "studio_id": "1",
+      "seat_number": "C6"
+    },
+    {
+      "id": "1_C7",
+      "studio_id": "1",
+      "seat_number": "C7"
+    },
+    {
+      "id": "1_C8",
+      "studio_id": "1",
+      "seat_number": "C8"
+    },
+    {
+      "id": "1_C9",
+      "studio_id": "1",
+      "seat_number": "C9"
+    },
+    {
+      "id": "1_C10",
+      "studio_id": "1",
+      "seat_number": "C10"
+    },
+    {
+      "id": "1_D1",
+      "studio_id": "1",
+      "seat_number": "D1"
+    },
+    {
+      "id": "1_D2",
+      "studio_id": "1",
+      "seat_number": "D2"
+    },
+    {
+      "id": "1_D3",
+      "studio_id": "1",
+      "seat_number": "D3"
+    },
+    {
+      "id": "1_D4",
+      "studio_id": "1",
+      "seat_number": "D4"
+    },
+    {
+      "id": "1_D5",
+      "studio_id": "1",
+      "seat_number": "D5"
+    },
+    {
+      "id": "1_D6",
+      "studio_id": "1",
+      "seat_number": "D6"
+    },
+    {
+      "id": "1_D7",
+      "studio_id": "1",
+      "seat_number": "D7"
+    },
+    {
+      "id": "1_D8",
+      "studio_id": "1",
+      "seat_number": "D8"
+    },
+    {
+      "id": "1_D9",
+      "studio_id": "1",
+      "seat_number": "D9"
+    },
+    {
+      "id": "1_D10",
+      "studio_id": "1",
+      "seat_number": "D10"
+    },
+    {
+      "id": "1_E1",
+      "studio_id": "1",
+      "seat_number": "E1"
+    },
+    {
+      "id": "1_E2",
+      "studio_id": "1",
+      "seat_number": "E2"
+    },
+    {
+      "id": "1_E3",
+      "studio_id": "1",
+      "seat_number": "E3"
+    },
+    {
+      "id": "1_E4",
+      "studio_id": "1",
+      "seat_number": "E4"
+    },
+    {
+      "id": "1_E5",
+      "studio_id": "1",
+      "seat_number": "E5"
+    },
+    {
+      "id": "1_E6",
+      "studio_id": "1",
+      "seat_number": "E6"
+    },
+    {
+      "id": "1_E7",
+      "studio_id": "1",
+      "seat_number": "E7"
+    },
+    {
+      "id": "1_E8",
+      "studio_id": "1",
+      "seat_number": "E8"
+    },
+    {
+      "id": "1_E9",
+      "studio_id": "1",
+      "seat_number": "E9"
+    },
+    {
+      "id": "1_E10",
+      "studio_id": "1",
+      "seat_number": "E10"
+    },
+    {
+      "id": "2_A1",
+      "studio_id": "2",
+      "seat_number": "A1"
+    },
+    {
+      "id": "2_A2",
+      "studio_id": "2",
+      "seat_number": "A2"
+    },
+    {
+      "id": "2_A3",
+      "studio_id": "2",
+      "seat_number": "A3"
+    },
+    {
+      "id": "2_A4",
+      "studio_id": "2",
+      "seat_number": "A4"
+    },
+    {
+      "id": "2_A5",
+      "studio_id": "2",
+      "seat_number": "A5"
+    },
+    {
+      "id": "2_A6",
+      "studio_id": "2",
+      "seat_number": "A6"
+    },
+    {
+      "id": "2_A7",
+      "studio_id": "2",
+      "seat_number": "A7"
+    },
+    {
+      "id": "2_A8",
+      "studio_id": "2",
+      "seat_number": "A8"
+    },
+    {
+      "id": "2_A9",
+      "studio_id": "2",
+      "seat_number": "A9"
+    },
+    {
+      "id": "2_A10",
+      "studio_id": "2",
+      "seat_number": "A10"
+    },
+    {
+      "id": "2_B1",
+      "studio_id": "2",
+      "seat_number": "B1"
+    },
+    {
+      "id": "2_B2",
+      "studio_id": "2",
+      "seat_number": "B2"
+    },
+    {
+      "id": "2_B3",
+      "studio_id": "2",
+      "seat_number": "B3"
+    },
+    {
+      "id": "2_B4",
+      "studio_id": "2",
+      "seat_number": "B4"
+    },
+    {
+      "id": "2_B5",
+      "studio_id": "2",
+      "seat_number": "B5"
+    },
+    {
+      "id": "2_B6",
+      "studio_id": "2",
+      "seat_number": "B6"
+    },
+    {
+      "id": "2_B7",
+      "studio_id": "2",
+      "seat_number": "B7"
+    },
+    {
+      "id": "2_B8",
+      "studio_id": "2",
+      "seat_number": "B8"
+    },
+    {
+      "id": "2_B9",
+      "studio_id": "2",
+      "seat_number": "B9"
+    },
+    {
+      "id": "2_B10",
+      "studio_id": "2",
+      "seat_number": "B10"
+    },
+    {
+      "id": "2_C1",
+      "studio_id": "2",
+      "seat_number": "C1"
+    },
+    {
+      "id": "2_C2",
+      "studio_id": "2",
+      "seat_number": "C2"
+    },
+    {
+      "id": "2_C3",
+      "studio_id": "2",
+      "seat_number": "C3"
+    },
+    {
+      "id": "2_C4",
+      "studio_id": "2",
+      "seat_number": "C4"
+    },
+    {
+      "id": "2_C5",
+      "studio_id": "2",
+      "seat_number": "C5"
+    },
+    {
+      "id": "2_C6",
+      "studio_id": "2",
+      "seat_number": "C6"
+    },
+    {
+      "id": "2_C7",
+      "studio_id": "2",
+      "seat_number": "C7"
+    },
+    {
+      "id": "2_C8",
+      "studio_id": "2",
+      "seat_number": "C8"
+    },
+    {
+      "id": "2_C9",
+      "studio_id": "2",
+      "seat_number": "C9"
+    },
+    {
+      "id": "2_C10",
+      "studio_id": "2",
+      "seat_number": "C10"
+    }
+  ]
 }

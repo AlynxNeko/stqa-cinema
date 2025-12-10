@@ -10,9 +10,29 @@ export class JsonStorage {
   private async readDb() {
     try {
       const data = await fs.readFile(DB_PATH, "utf-8");
-      return JSON.parse(data);
+      const db = JSON.parse(data);
+      
+      // Ensure all arrays exist to prevent "undefined" errors
+      if (!db.users) db.users = [];
+      if (!db.films) db.films = [];
+      if (!db.studios) db.studios = [];
+      if (!db.showtimes) db.showtimes = [];
+      if (!db.bookings) db.bookings = [];
+      if (!db.seat_statuses) db.seat_statuses = [];
+      if (!db.booking_seats) db.booking_seats = []; // Critical fix
+      
+      return db;
     } catch (e) {
-      return { users: [], films: [], studios: [], showtimes: [], bookings: [], seat_statuses: [] };
+      // Default structure if file read fails
+      return { 
+        users: [], 
+        films: [], 
+        studios: [], 
+        showtimes: [], 
+        bookings: [], 
+        seat_statuses: [], 
+        booking_seats: [] 
+      };
     }
   }
 
@@ -40,7 +60,6 @@ export class JsonStorage {
     return db.films;
   }
 
-  // [BARU] Ambil 1 film by ID
   async getFilm(id: string) {
     const db = await this.readDb();
     return db.films.find((f: any) => f.id === id);
@@ -54,7 +73,6 @@ export class JsonStorage {
     return newFilm;
   }
 
-  // [BARU] Update film
   async updateFilm(id: string, updates: any) {
     const db = await this.readDb();
     const index = db.films.findIndex((f: any) => f.id === id);
@@ -82,7 +100,6 @@ export class JsonStorage {
     }));
   }
 
-  // [BARU] Ambil 1 showtime by ID (untuk halaman select-seats)
   async getShowtime(id: string) {
     const db = await this.readDb();
     const showtime = db.showtimes.find((s: any) => s.id === id);
@@ -99,13 +116,6 @@ export class JsonStorage {
     const db = await this.readDb();
     const newShowtime = { ...showtime, id: Math.random().toString(36).substr(2, 9) };
     db.showtimes.push(newShowtime);
-    // Auto-generate seat statuses (Available)
-    const studio = db.studios.find((s: any) => s.id === showtime.studio_id);
-    if (studio) {
-       // Logic sederhana generate status kursi jika diperlukan
-       // Tapi di kode user logic booking_seats nampaknya dinamis, jadi seat_statuses
-       // biasanya diisi saat ada booking. Kita biarkan array kosong dulu.
-    }
     await this.writeDb(db);
     return newShowtime;
   }
@@ -117,21 +127,13 @@ export class JsonStorage {
   }
 
   // --- SEAT STATUSES ---
-  // [BARU] Get seat statuses per showtime
   async getSeatStatuses(showtimeId: string) {
     const db = await this.readDb();
-    // Kita perlu join dengan table 'seats' agar client tau nomor kursinya
-    // Filter status khusus showtime ini
     const statuses = db.seat_statuses.filter((s: any) => s.showtime_id === showtimeId);
-    
-    // Tapi client butuh daftar SEMUA kursi beserta statusnya.
-    // Flow: Ambil studio ID dari showtime -> Ambil semua kursi studio itu -> Map statusnya
     
     const showtime = db.showtimes.find((s: any) => s.id === showtimeId);
     if (!showtime) return [];
 
-    // Generate kursi dummy berdasarkan kapasitas studio (karena table seats mungkin belum diisi manual)
-    // Sesuai SUPABASE_SETUP.md logic generator:
     const studio = db.studios.find((s: any) => s.id === showtime.studio_id);
     const seats = [];
     if (studio) {
@@ -141,9 +143,8 @@ export class JsonStorage {
             for (let j = 1; j <= 10; j++) {
                 if ((i * 10 + j) > studio.capacity) break;
                 const seatNum = `${rowLetter}${j}`;
-                const seatId = `${studio.id}-${seatNum}`; // Fake ID for dummy DB
+                const seatId = `${studio.id}-${seatNum}`; 
                 
-                // Cek status real di db.seat_statuses
                 const statusObj = statuses.find((s: any) => s.seat_id === seatId);
                 
                 seats.push({
@@ -174,22 +175,59 @@ export class JsonStorage {
         return {
             ...b,
             showtime: showtime ? { ...showtime, film } : null,
-            // Perlu mock booking_seats untuk tampilan admin
             booking_seats: db.booking_seats
               .filter((bs: any) => bs.booking_id === b.id)
               .map((bs: any) => ({
                  ...bs,
-                 seat: { seat_number: bs.seat_id.split('-')[1] || '??' } // Hack parsing ID dummy
+                 seat: { seat_number: bs.seat_id.split('-')[1] || '??' } 
               }))
         };
     });
   }
 
-  // Mock ambil detail kursi dari ID (Format ID: "StudioID-NomorKursi")
+  async updateBookingStatus(id: string, status: string) {
+    const db = await this.readDb();
+    const booking = db.bookings.find((b: any) => b.id === id);
+    if (booking) {
+      booking.status = status;
+      
+      // If rejected or expired, release seats
+      if (status === 'Rejected' || status === 'Expired') {
+         // Find booking seats
+         const bookingSeats = db.booking_seats.filter((bs: any) => bs.booking_id === id);
+         bookingSeats.forEach((bs: any) => {
+             // Find status entry
+             const statusEntry = db.seat_statuses.find(
+                 (s: any) => s.seat_id === bs.seat_id && s.showtime_id === booking.showtime_id
+             );
+             if (statusEntry) {
+                 statusEntry.status = 'Available';
+             }
+         });
+      }
+      
+      // If confirmed, make sure seats are booked
+      if (status === 'Confirmed') {
+         const bookingSeats = db.booking_seats.filter((bs: any) => bs.booking_id === id);
+         bookingSeats.forEach((bs: any) => {
+             const statusEntry = db.seat_statuses.find(
+                 (s: any) => s.seat_id === bs.seat_id && s.showtime_id === booking.showtime_id
+             );
+             if (statusEntry) {
+                 statusEntry.status = 'Booked';
+             }
+         });
+      }
+
+      await this.writeDb(db);
+      return booking;
+    }
+    return null;
+  }
+
   async getSeatsByIds(seatIds: string[]) {
     const db = await this.readDb();
     return seatIds.map(id => {
-       // Kita generate object kursi on-the-fly karena di db.json kursi mungkin belum di-seed
        const parts = id.split('-');
        const seatNum = parts.length > 1 ? parts[1] : id;
        const studioId = parts[0]; 
@@ -201,7 +239,6 @@ export class JsonStorage {
     });
   }
 
-  // Transaksi Booking: Simpan Booking + Simpan Kursi + Update Status
   async createBookingTransaction(bookingData: any, seatIds: string[]) {
     const db = await this.readDb();
     
@@ -215,7 +252,7 @@ export class JsonStorage {
 
     // 2. Simpan Booking Seats & Update Status Kursi
     seatIds.forEach(seatId => {
-        // Masukkan ke tabel booking_seats
+        // Safe push to booking_seats
         db.booking_seats.push({
             id: Math.random().toString(36).substr(2, 9),
             booking_id: newBooking.id,
@@ -250,6 +287,37 @@ export class JsonStorage {
       activeShowtimes: db.showtimes.length,
       pendingBookings: db.bookings.filter((b: any) => b.status === 'Pending').length
     };
+  }
+  
+  async initializeSeats() {
+    const db = await this.readDb();
+    
+    // If seats table is empty but studios exist, generate seats
+    if ((!db.seats || db.seats.length === 0) && db.studios && db.studios.length > 0) {
+        console.log("Initializing real seats data into database...");
+        db.seats = []; 
+        
+        db.studios.forEach((studio: any) => {
+            const rows = Math.ceil(studio.capacity / 10);
+            for (let i = 0; i < rows; i++) {
+                const rowLetter = String.fromCharCode(65 + i); // A, B, C...
+                for (let j = 1; j <= 10; j++) {
+                    if ((i * 10 + j) > studio.capacity) break;
+                    
+                    const seatNumber = `${rowLetter}${j}`;
+                    // Create distinct Seat ID
+                    const newSeat = {
+                        id: `${studio.id}_${seatNumber}`, 
+                        studio_id: studio.id,
+                        seat_number: seatNumber
+                    };
+                    db.seats.push(newSeat);
+                }
+            }
+        });
+        await this.writeDb(db);
+        console.log(`Generated ${db.seats.length} seats.`);
+    }
   }
 }
 
