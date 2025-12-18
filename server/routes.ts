@@ -29,7 +29,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(films);
   });
 
-  // [BARU] Route Get Film by ID (Ini solusi untuk masalah Anda)
   app.get("/api/films/:id", async (req, res) => {
     const film = await storage.getFilm(req.params.id);
     if (!film) return res.status(404).json({ error: "Film not found" });
