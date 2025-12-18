@@ -6,7 +6,7 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase, Showtime, SeatStatus } from '@/lib/supabase';
+import { api, Showtime, SeatStatus } from '@/lib/supabase';
 import { format } from 'date-fns';
 
 export default function SelectSeats() {
@@ -15,31 +15,20 @@ export default function SelectSeats() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [, setLocation] = useLocation();
 
-  const { data: showtime } = useQuery<Showtime>({
+  const { data: showtime, isLoading: showtimeLoading } = useQuery<Showtime>({
     queryKey: ['/api/showtimes', showtimeId],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('showtimes')
-        .select('*, film:films(*), studio:studios(*)')
-        .eq('id', showtimeId)
-        .single();
-      
-      if (error) throw error;
-      return data;
+      return await api.get(`/api/showtimes/${showtimeId}`);
     },
     enabled: !!showtimeId,
   });
 
-  const { data: seatStatuses, isLoading } = useQuery<SeatStatus[]>({
+  // Fetch ALL seats with status for this showtime
+  const { data: allSeatStatuses, isLoading: seatsLoading } = useQuery<SeatStatus[]>({
     queryKey: ['/api/seat-statuses', showtimeId],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('seat_statuses')
-        .select('*, seat:seats(*)')
-        .eq('showtime_id', showtimeId);
-      
-      if (error) throw error;
-      return data || [];
+      const res = await api.get(`/api/seat-statuses?showtime_id=${showtimeId}`);
+      return res || [];
     },
     enabled: !!showtimeId,
     refetchInterval: 3000,
@@ -53,11 +42,6 @@ export default function SelectSeats() {
     }
   };
 
-  const getSeatStatus = (seatId: string) => {
-    const status = seatStatuses?.find((s) => s.seat_id === seatId);
-    return status?.status || 'Available';
-  };
-
   const handleContinue = () => {
     if (selectedSeats.length > 0 && showtimeId) {
       const params = new URLSearchParams({
@@ -68,9 +52,16 @@ export default function SelectSeats() {
     }
   };
 
-  const totalSeats = showtime?.studio?.capacity || 0;
-  const rows = Math.ceil(totalSeats / 10);
-  const seatsPerRow = 10;
+  // Group seats by Row (A, B, C...) based on real DB data
+  const rows = allSeatStatuses?.reduce((acc, status) => {
+    const rowLetter = status.seat?.seat_number.charAt(0) || '?';
+    if (!acc[rowLetter]) acc[rowLetter] = [];
+    acc[rowLetter].push(status);
+    return acc;
+  }, {} as Record<string, SeatStatus[]>);
+
+  const sortedRowKeys = Object.keys(rows || {}).sort();
+  const isLoading = showtimeLoading || seatsLoading;
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,30 +112,35 @@ export default function SelectSeats() {
                     <div className="animate-pulse text-muted-foreground">Loading seats...</div>
                   </div>
                 ) : (
-                  <div className="space-y-1 sm:space-y-3 overflow-x-auto pb-4">
-                    {[...Array(rows)].map((_, rowIndex) => {
-                      const rowLetter = String.fromCharCode(65 + rowIndex);
-                      return (
-                        <div key={rowIndex} className="flex justify-center items-center gap-1 sm:gap-2">
-                          <span className="text-xs font-mono text-muted-foreground w-3 sm:w-4 flex-shrink-0">{rowLetter}</span>
-                          <div className="flex gap-1 sm:gap-2">
-                            {[...Array(seatsPerRow)].map((_, seatIndex) => {
-                              const seatNumber = `${rowLetter}${seatIndex + 1}`;
-                              const seatObj = seatStatuses?.find(
-                                (s) => s.seat?.seat_number === seatNumber
-                              );
-                              const seatId = seatObj?.seat_id || '';
-                              const status = getSeatStatus(seatId);
+                  <div className="space-y-3 overflow-x-auto pb-4">
+                    {/* Render Rows Dynamically */}
+                    {sortedRowKeys.length > 0 ? sortedRowKeys.map((rowKey) => (
+                      <div key={rowKey} className="flex justify-center items-center gap-2">
+                        <span className="text-xs font-mono text-muted-foreground w-4 flex-shrink-0 text-center">
+                          {rowKey}
+                        </span>
+                        <div className="flex gap-2">
+                          {rows![rowKey]
+                            .sort((a, b) => {
+                                // Sort numerically (A1, A2, A10)
+                                const numA = parseInt(a.seat?.seat_number.slice(1) || '0');
+                                const numB = parseInt(b.seat?.seat_number.slice(1) || '0');
+                                return numA - numB;
+                            })
+                            .map((seatStatus) => {
+                              const seatId = seatStatus.seat_id;
+                              const status = seatStatus.status;
                               const isSelected = selectedSeats.includes(seatId);
                               const isDisabled = status === 'Booked' || status === 'Pending';
+                              const seatLabel = seatStatus.seat?.seat_number.slice(1);
 
                               return (
                                 <button
-                                  key={seatIndex}
+                                  key={seatId}
                                   onClick={() => !isDisabled && toggleSeat(seatId)}
                                   disabled={isDisabled}
                                   className={`
-                                    w-10 h-10 rounded text-xs font-mono font-medium transition-all
+                                    w-10 h-10 rounded text-xs font-mono font-medium transition-all flex items-center justify-center
                                     ${isSelected 
                                       ? 'border-4 border-primary bg-primary/10' 
                                       : status === 'Booked'
@@ -154,16 +150,19 @@ export default function SelectSeats() {
                                       : 'border-2 border-foreground hover-elevate active-elevate-2'
                                     }
                                   `}
-                                  data-testid={`seat-${seatNumber}`}
+                                  title={seatStatus.seat?.seat_number}
                                 >
-                                  {seatIndex + 1}
+                                  {seatLabel}
                                 </button>
                               );
-                            })}
-                          </div>
+                          })}
                         </div>
-                      );
-                    })}
+                      </div>
+                    )) : (
+                      <div className="text-center py-8 text-muted-foreground">
+                        No seats available (Studio configuration missing)
+                      </div>
+                    )}
                   </div>
                 )}
               </CardContent>
@@ -175,7 +174,7 @@ export default function SelectSeats() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4">Booking Summary</h3>
                 
-                {showtime && (
+                {showtime ? (
                   <div className="space-y-4 mb-6">
                     <div>
                       <p className="text-sm text-muted-foreground">Film</p>
@@ -184,7 +183,7 @@ export default function SelectSeats() {
                     <div>
                       <p className="text-sm text-muted-foreground">Date & Time</p>
                       <p className="font-semibold">
-                        {format(new Date(showtime.date), 'EEEE, MMM d, yyyy')}
+                        {showtime.date ? format(new Date(showtime.date), 'EEEE, MMM d, yyyy') : '-'}
                       </p>
                       <p className="text-sm">{showtime.time}</p>
                     </div>
@@ -197,10 +196,10 @@ export default function SelectSeats() {
                       {selectedSeats.length > 0 ? (
                         <div className="flex flex-wrap gap-1 mt-1">
                           {selectedSeats.map((seatId) => {
-                            const seat = seatStatuses?.find((s) => s.seat_id === seatId)?.seat;
+                            const found = allSeatStatuses?.find(s => s.seat_id === seatId);
                             return (
                               <Badge key={seatId} variant="secondary">
-                                {seat?.seat_number}
+                                {found?.seat?.seat_number || 'Seat'}
                               </Badge>
                             );
                           })}
@@ -212,7 +211,8 @@ export default function SelectSeats() {
                     <div className="pt-4 border-t">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-muted-foreground">Price per seat</span>
-                        <span>Rp {showtime.price.toLocaleString('id-ID')}</span>
+                        {/* SAFEGUARD PRICE */}
+                        <span>Rp {(showtime.price || 0).toLocaleString('id-ID')}</span>
                       </div>
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-muted-foreground">Seats</span>
@@ -220,10 +220,15 @@ export default function SelectSeats() {
                       </div>
                       <div className="flex justify-between items-center text-lg font-bold">
                         <span>Total</span>
-                        <span>Rp {(selectedSeats.length * showtime.price).toLocaleString('id-ID')}</span>
+                        {/* SAFEGUARD PRICE CALCULATION */}
+                        <span>Rp {(selectedSeats.length * (showtime.price || 0)).toLocaleString('id-ID')}</span>
                       </div>
                     </div>
                   </div>
+                ) : (
+                    <div className="py-4 text-center text-muted-foreground">
+                        Loading summary...
+                    </div>
                 )}
 
                 <Button

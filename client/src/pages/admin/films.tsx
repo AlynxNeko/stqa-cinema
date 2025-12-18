@@ -24,7 +24,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { supabase, Film } from '@/lib/supabase';
+import { api, Film } from '@/lib/supabase';
 import { queryClient } from '@/lib/queryClient';
 
 export default function AdminFilms() {
@@ -34,27 +34,12 @@ export default function AdminFilms() {
 
   const { data: films, isLoading } = useQuery<Film[]>({
     queryKey: ['/api/films'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('films')
-        .select('*')
-        .order('title', { ascending: true });
-      
-      if (error) throw error;
-      return data || [];
-    },
+    queryFn: async () => await api.get('/api/films'),
   });
 
   const createFilm = useMutation({
     mutationFn: async (filmData: Partial<Film>) => {
-      const { data, error } = await supabase
-        .from('films')
-        .insert(filmData)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+      return await api.post('/api/films', filmData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
@@ -67,16 +52,9 @@ export default function AdminFilms() {
   });
 
   const updateFilm = useMutation({
-    mutationFn: async ({ id, ...filmData }: Partial<Film>) => {
-      const { data, error } = await supabase
-        .from('films')
-        .update(filmData)
-        .eq('id', id)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+    mutationFn: async (filmData: Film) => {
+      // FIX: Gunakan PATCH agar ID tidak berubah
+      return await api.patch(`/api/films/${filmData.id}`, filmData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
@@ -91,8 +69,7 @@ export default function AdminFilms() {
 
   const deleteFilm = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from('films').delete().eq('id', id);
-      if (error) throw error;
+      return await api.delete(`/api/films/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/films'] });
@@ -122,6 +99,8 @@ export default function AdminFilms() {
     }
   };
 
+  // ... (Sisa return JSX sama seperti file Anda sebelumnya, tidak perlu diubah)
+  // Pastikan bagian JSX yang merender form dan table tetap ada
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full">
@@ -145,84 +124,38 @@ export default function AdminFilms() {
                   <DialogTitle>{editingFilm ? 'Edit Film' : 'Add New Film'}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Form Inputs ... sama seperti sebelumnya */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="title">Title *</Label>
-                      <Input
-                        id="title"
-                        name="title"
-                        required
-                        defaultValue={editingFilm?.title}
-                        data-testid="input-title"
-                      />
+                      <Input id="title" name="title" required defaultValue={editingFilm?.title} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="genre">Genre *</Label>
-                      <Input
-                        id="genre"
-                        name="genre"
-                        required
-                        defaultValue={editingFilm?.genre}
-                        data-testid="input-genre"
-                      />
+                      <Input id="genre" name="genre" required defaultValue={editingFilm?.genre} />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="duration_min">Duration (minutes) *</Label>
-                      <Input
-                        id="duration_min"
-                        name="duration_min"
-                        type="number"
-                        required
-                        defaultValue={editingFilm?.duration_min}
-                        data-testid="input-duration"
-                      />
+                      <Input id="duration_min" name="duration_min" type="number" required defaultValue={editingFilm?.duration_min} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="rating">Rating (0-10) *</Label>
-                      <Input
-                        id="rating"
-                        name="rating"
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        max="10"
-                        required
-                        defaultValue={editingFilm?.rating}
-                        data-testid="input-rating"
-                      />
+                      <Input id="rating" name="rating" type="number" step="0.1" min="0" max="10" required defaultValue={editingFilm?.rating} />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="poster_url">Poster URL *</Label>
-                    <Input
-                      id="poster_url"
-                      name="poster_url"
-                      type="url"
-                      required
-                      defaultValue={editingFilm?.poster_url}
-                      data-testid="input-poster-url"
-                    />
+                    <Input id="poster_url" name="poster_url" type="url" required defaultValue={editingFilm?.poster_url} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="description">Description *</Label>
-                    <Textarea
-                      id="description"
-                      name="description"
-                      required
-                      defaultValue={editingFilm?.description}
-                      rows={4}
-                      data-testid="input-description"
-                    />
+                    <Textarea id="description" name="description" required defaultValue={editingFilm?.description} rows={4} />
                   </div>
                   <div className="flex justify-end gap-2">
-                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button type="submit" data-testid="button-submit">
-                      {editingFilm ? 'Update' : 'Create'} Film
-                    </Button>
+                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+                    <Button type="submit">{editingFilm ? 'Update' : 'Create'} Film</Button>
                   </div>
                 </form>
               </DialogContent>
@@ -247,63 +180,27 @@ export default function AdminFilms() {
                     </TableHeader>
                     <TableBody>
                       {films.map((film) => (
-                        <TableRow key={film.id} data-testid={`row-film-${film.id}`}>
+                        <TableRow key={film.id}>
                           <TableCell>
                             <div className="w-12 h-16 bg-muted rounded overflow-hidden">
-                              {film.poster_url && (
-                                <img
-                                  src={film.poster_url}
-                                  alt={film.title}
-                                  className="w-full h-full object-cover"
-                                />
-                              )}
+                              {film.poster_url && <img src={film.poster_url} alt={film.title} className="w-full h-full object-cover" />}
                             </div>
                           </TableCell>
                           <TableCell className="font-semibold">{film.title}</TableCell>
                           <TableCell>{film.genre}</TableCell>
                           <TableCell>{film.duration_min} min</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-1">
-                              <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                              {film.rating.toFixed(1)}
-                            </div>
-                          </TableCell>
+                          <TableCell><div className="flex items-center gap-1"><Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />{film.rating.toFixed(1)}</div></TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                onClick={() => {
-                                  setEditingFilm(film);
-                                  setIsDialogOpen(true);
-                                }}
-                                data-testid={`button-edit-${film.id}`}
-                              >
-                                <Pencil className="h-4 w-4" />
-                              </Button>
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                onClick={() => {
-                                  if (confirm('Are you sure you want to delete this film?')) {
-                                    deleteFilm.mutate(film.id);
-                                  }
-                                }}
-                                data-testid={`button-delete-${film.id}`}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
+                              <Button size="icon" variant="ghost" onClick={() => { setEditingFilm(film); setIsDialogOpen(true); }}><Pencil className="h-4 w-4" /></Button>
+                              <Button size="icon" variant="ghost" onClick={() => { if (confirm('Delete film?')) deleteFilm.mutate(film.id); }}><Trash2 className="h-4 w-4" /></Button>
                             </div>
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
-                ) : (
-                  <div className="p-12 text-center text-muted-foreground">
-                    No films yet. Add your first film!
-                  </div>
-                )}
+                ) : <div className="p-12 text-center text-muted-foreground">No films yet.</div>}
               </CardContent>
             </Card>
           </main>

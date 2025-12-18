@@ -3,10 +3,8 @@ import { useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { supabase } from "@/lib/supabase";
 import {
   Card,
   CardContent,
@@ -25,10 +23,10 @@ import {
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/hooks/use-toast";
 
-// --- Validation Schemas ---
+// --- Validation Schemas (Tetap Sama) ---
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(4, "Password must be at least 4 characters"), // DB dummy pass pendek gpp
 });
 
 const signUpSchema = loginSchema.extend({
@@ -44,7 +42,6 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
-  // --- Forms ---
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -55,40 +52,26 @@ export default function Login() {
     defaultValues: { name: "", email: "", password: "" },
   });
 
-  // --- Handlers ---
+  // --- Handler Login Baru (Tanpa Supabase) ---
   const handleLoginSubmit = async (data: LoginFormData) => {
     try {
-      // sign in
-      const { error } = await signIn(data.email, data.password);
+      // Panggil signIn dari auth-context
+      const { user, error } = await signIn(data.email, data.password);
+      
       if (error) throw error;
-
-      // get signed-in user
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-      if (userError || !user) throw userError || new Error("No user found");
-
-      // get user profile
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-      if (profileError) throw profileError;
 
       toast({ title: "Welcome back!", description: "Successfully signed in." });
 
-      // redirect by role
-      if (profile.role === "admin") {
+      // Redirect berdasarkan role dari data user (db.json)
+      if (user?.role === "admin") {
         setLocation("/admin/dashboard");
       } else {
         setLocation("/films");
       }
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "An error occurred",
+        title: "Login Failed",
+        description: error.message || "Invalid email or password",
         variant: "destructive",
       });
     }
@@ -100,14 +83,14 @@ export default function Login() {
       if (error) throw error;
       toast({
         title: "Account created!",
-        description: "Successfully registered. Please sign in.",
+        description: "Successfully registered. You can now login.",
       });
       setIsLogin(true);
       signUpForm.reset();
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "An error occurred",
+        title: "Registration Failed",
+        description: error.message || "Could not create account",
         variant: "destructive",
       });
     }
@@ -116,18 +99,16 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
-        {/* --- Header --- */}
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-2">
             <img src="/CB_logo.png" alt="CinemaBook Logo" className="h-12 w-12"/>
             <span className="text-3xl font-bold">CinemaBook</span>
           </div>
           <p className="text-muted-foreground text-sm">
-            Book your favorite movies
+            Local DB Version
           </p>
         </div>
 
-        {/* --- Card --- */}
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">
@@ -135,154 +116,100 @@ export default function Login() {
             </CardTitle>
             <CardDescription>
               {isLogin
-                ? "Sign in to your account to continue"
-                : "Register to start booking movie tickets"}
+                ? "Sign in to continue (Admin: admin@cinema.com / admin)"
+                : "Register a new account"}
             </CardDescription>
           </CardHeader>
 
           <CardContent>
-            {/* --- Login Form --- */}
             {isLogin ? (
               <Form key="login-form" {...loginForm}>
-                <form
-                  onSubmit={loginForm.handleSubmit(handleLoginSubmit)}
-                  className="space-y-4"
-                >
+                <form onSubmit={loginForm.handleSubmit(handleLoginSubmit)} className="space-y-4">
                   <FormField
                     control={loginForm.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="you@example.com"
-                            data-testid="login-email"
-                            {...field}
-                          />
+                          <Input placeholder="admin@cinema.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={loginForm.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password *</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="••••••••"
-                            data-testid="login-password"
-                            {...field}
-                          />
+                          <Input type="password" placeholder="admin" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={loginForm.formState.isSubmitting}
-                    data-testid="login-submit"
-                  >
-                    {loginForm.formState.isSubmitting
-                      ? "Please wait..."
-                      : "Sign In"}
+                  <Button type="submit" className="w-full" disabled={loginForm.formState.isSubmitting}>
+                    {loginForm.formState.isSubmitting ? "Signing in..." : "Sign In"}
                   </Button>
                 </form>
               </Form>
             ) : (
-              /* --- Sign Up Form --- */
               <Form key="signup-form" {...signUpForm}>
-                <form
-                  onSubmit={signUpForm.handleSubmit(handleSignUpSubmit)}
-                  className="space-y-4"
-                >
+                <form onSubmit={signUpForm.handleSubmit(handleSignUpSubmit)} className="space-y-4">
                   <FormField
                     control={signUpForm.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name *</FormLabel>
+                        <FormLabel>Full Name</FormLabel>
                         <FormControl>
-                          <Input
-                            type="text"
-                            placeholder="John Doe"
-                            data-testid="signup-name"
-                            {...field}
-                          />
+                          <Input placeholder="John Doe" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={signUpForm.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="you@example.com"
-                            data-testid="signup-email"
-                            {...field}
-                          />
+                          <Input placeholder="user@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={signUpForm.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password *</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="••••••••"
-                            data-testid="signup-password"
-                            {...field}
-                          />
+                          <Input type="password" placeholder="••••" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={signUpForm.formState.isSubmitting}
-                    data-testid="signup-submit"
-                  >
-                    {signUpForm.formState.isSubmitting
-                      ? "Please wait..."
-                      : "Create Account"}
+                  <Button type="submit" className="w-full" disabled={signUpForm.formState.isSubmitting}>
+                    {signUpForm.formState.isSubmitting ? "Creating account..." : "Create Account"}
                   </Button>
                 </form>
               </Form>
             )}
 
-            {/* --- Toggle Button --- */}
             <div className="mt-4 text-center text-sm">
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-primary hover:underline"
-                data-testid="toggle-mode"
               >
                 {isLogin
                   ? "Don't have an account? Sign up"

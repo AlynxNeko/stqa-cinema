@@ -1,12 +1,20 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase, Profile } from './supabase';
-import { User } from '@supabase/supabase-js';
+import { api, Profile } from './supabase'; // Pastikan import api dari sini
+
+// Definisi tipe User sederhana agar tidak error
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'user' | 'admin';
+}
 
 interface AuthContextType {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  // Perbaikan tipe return di sini:
+  signIn: (email: string, password: string) => Promise<{ user: User | null; error: any }>;
   signUp: (email: string, password: string, name: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -19,63 +27,56 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        loadProfile(session.user.id);
-      } else {
-        setLoading(false);
+    // Cek localStorage saat aplikasi dimuat
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const userData = JSON.parse(storedUser);
+        setUser(userData);
+        setProfile(userData); 
+      } catch (e) {
+        console.error("Failed to parse user from local storage", e);
+        localStorage.removeItem('user');
       }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        loadProfile(session.user.id);
-      } else {
-        setProfile(null);
-        setLoading(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  async function loadProfile(userId: string) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
-    
-    if (!error && data) {
-      setProfile(data);
     }
     setLoading(false);
-  }
+  }, []);
 
   async function signIn(email: string, password: string) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error };
+    try {
+      const res = await api.post('/api/auth/login', { email, password });
+      
+      // Simpan data user
+      setUser(res.user);
+      setProfile(res.user);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      
+      // Return user agar bisa dibaca di halaman Login
+      return { user: res.user, error: null };
+    } catch (error: any) {
+      return { user: null, error };
+    }
   }
 
   async function signUp(email: string, password: string, name: string) {
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    
-    if (!error && data.user) {
-      await supabase.from('profiles').insert({
-        id: data.user.id,
-        email,
-        name,
-        role: 'user'
-      });
+    try {
+      const res = await api.post('/api/auth/register', { email, password, name });
+      
+      // Auto login setelah register
+      setUser(res.user);
+      setProfile(res.user);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      
+      return { error: null };
+    } catch (error: any) {
+      return { error };
     }
-    
-    return { error };
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
+    setUser(null);
+    setProfile(null);
+    localStorage.removeItem('user');
   }
 
   return (
