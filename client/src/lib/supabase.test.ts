@@ -32,6 +32,12 @@ describe('supabase api helper', () => {
     expect(res).toEqual({ ok: true })
   })
 
+  it('api.post throws default API Error when json has no error field', async () => {
+    const fake = { ok: false, json: async () => ({}) } as unknown as Response
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(fake))
+    await expect(api.post('/x', { a: 1 })).rejects.toThrow('API Error')
+  })
+
   it('api.delete and api.patch behavior', async () => {
     const fakeDel = { ok: true, json: async () => ({ d: 1 }) } as unknown as Response
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(fakeDel))

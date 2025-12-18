@@ -1,73 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1766070928344" clover="3.2.0">
-  <project timestamp="1766070928344" name="All files">
-    <metrics statements="321" coveredstatements="293" conditionals="136" coveredconditionals="103" methods="114" coveredmethods="93" elements="571" coveredelements="489" complexity="0" loc="321" ncloc="321" packages="3" files="5" classes="5"/>
-    <package name="client.src.hooks">
-      <metrics statements="51" coveredstatements="28" conditionals="20" coveredconditionals="15" methods="18" coveredmethods="6"/>
-      <file name="use-toast.ts" path="D:\Daigaku\Semester7\CSP\csp-cinema copy\client\src\hooks\use-toast.ts">
-        <metrics statements="51" coveredstatements="28" conditionals="20" coveredconditionals="15" methods="18" coveredmethods="6"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="63" count="2" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="71" count="2" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="75" count="6" type="cond" truecount="4" falsecount="0"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="86" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="91" count="2" type="stmt"/>
-        <line num="95" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="96" count="1" type="stmt"/>
-        <line num="98" count="1" type="stmt"/>
-        <line num="99" count="2" type="stmt"/>
-        <line num="103" count="2" type="stmt"/>
-        <line num="106" count="4" type="cond" truecount="4" falsecount="0"/>
-        <line num="116" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="117" count="1" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="124" count="2" type="stmt"/>
-        <line num="129" count="1" type="stmt"/>
-        <line num="131" count="1" type="stmt"/>
-        <line num="134" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="143" count="0" type="stmt"/>
-        <line num="145" count="0" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="150" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
-        <line num="159" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="164" count="0" type="stmt"/>
-        <line num="172" count="0" type="stmt"/>
-        <line num="174" count="0" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
-        <line num="176" count="0" type="stmt"/>
-        <line num="177" count="0" type="stmt"/>
-        <line num="178" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="179" count="0" type="stmt"/>
-        <line num="184" count="0" type="stmt"/>
-        <line num="187" count="0" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1766077495038" clover="3.2.0">
+  <project timestamp="1766077495039" name="All files">
+    <metrics statements="270" coveredstatements="265" conditionals="116" coveredconditionals="90" methods="96" coveredmethods="87" elements="482" coveredelements="442" complexity="0" loc="270" ncloc="270" packages="2" files="4" classes="4"/>
     <package name="client.src.lib">
-      <metrics statements="33" coveredstatements="30" conditionals="22" coveredconditionals="16" methods="15" coveredmethods="8"/>
+      <metrics statements="33" coveredstatements="30" conditionals="22" coveredconditionals="18" methods="15" coveredmethods="8"/>
       <file name="queryClient.ts" path="D:\Daigaku\Semester7\CSP\csp-cinema copy\client\src\lib\queryClient.ts">
-        <metrics statements="14" coveredstatements="14" conditionals="12" coveredconditionals="9" methods="4" coveredmethods="4"/>
-        <line num="4" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="5" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
+        <metrics statements="14" coveredstatements="14" conditionals="12" coveredconditionals="10" methods="4" coveredmethods="4"/>
+        <line num="4" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="3" type="stmt"/>
@@ -79,15 +22,15 @@
         <line num="44" count="1" type="stmt"/>
       </file>
       <file name="supabase.ts" path="D:\Daigaku\Semester7\CSP\csp-cinema copy\client\src\lib\supabase.ts">
-        <metrics statements="19" coveredstatements="16" conditionals="10" coveredconditionals="7" methods="11" coveredmethods="4"/>
+        <metrics statements="19" coveredstatements="16" conditionals="10" coveredconditionals="8" methods="11" coveredmethods="4"/>
         <line num="70" count="1" type="stmt"/>
         <line num="72" count="2" type="stmt"/>
         <line num="73" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="74" count="1" type="stmt"/>
-        <line num="77" count="2" type="stmt"/>
-        <line num="82" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="84" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="77" count="3" type="stmt"/>
+        <line num="82" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="83" count="2" type="stmt"/>
+        <line num="84" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="86" count="1" type="stmt"/>
         <line num="89" count="1" type="stmt"/>
         <line num="90" count="1" type="cond" truecount="1" falsecount="1"/>

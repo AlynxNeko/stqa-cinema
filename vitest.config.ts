@@ -9,10 +9,8 @@ export default defineConfig({
     coverage: {
         provider: 'v8',
         include: ['server/**/*.ts', 'client/**/*.ts'],
-        exclude: ['**/*.d.ts', 'node_modules/**', '*config.ts', 'index.ts', 'utils.ts', 'test/**', 'vite.*'],
+        exclude: ['**/*.d.ts', 'node_modules/**', '*config.ts', 'index.ts', 'utils.ts', 'test/**', 'vite.*', '*hooks/**'],
     },
-    // default environment is 'node' which works for server tests;
-    // annotate client tests with `// @vitest-environment jsdom` if they need DOM.
     globals: true
   }
 })

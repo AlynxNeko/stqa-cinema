@@ -19,6 +19,19 @@ describe('queryClient helpers', () => {
     await expect(apiRequest('GET', '/x')).rejects.toThrow('400: bad body')
   })
 
+  it('apiRequest falls back to statusText when text is empty', async () => {
+    const fakeRes = {
+      ok: false,
+      status: 500,
+      statusText: 'ServerErr',
+      text: async () => ''
+    } as unknown as Response
+
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(fakeRes))
+
+    await expect(apiRequest('GET', '/x')).rejects.toThrow('500: ServerErr')
+  })
+
   it('getQueryFn returns null on 401 when configured', async () => {
     const fakeRes = {
       ok: false,
