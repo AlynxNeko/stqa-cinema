@@ -6,7 +6,7 @@ import { UserNav } from '@/components/user-nav';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { api, Film, Showtime } from '@/lib/supabase';
+import { supabase, Film, Showtime } from '@/lib/supabase';
 
 export default function FilmDetail() {
   const [, params] = useRoute('/films/:id');
@@ -15,8 +15,14 @@ export default function FilmDetail() {
   const { data: film, isLoading: filmLoading } = useQuery<Film>({
     queryKey: ['/api/films', filmId],
     queryFn: async () => {
-      // FIX: Langsung return hasil api.get
-      return await api.get(`/api/films/${filmId}`);
+      const { data, error } = await supabase
+        .from('films')
+        .select('*')
+        .eq('id', filmId)
+        .single();
+      
+      if (error) throw error;
+      return data;
     },
     enabled: !!filmId,
   });
@@ -24,8 +30,15 @@ export default function FilmDetail() {
   const { data: showtimes, isLoading: showtimesLoading } = useQuery<Showtime[]>({
     queryKey: ['/api/showtimes', filmId],
     queryFn: async () => {
-      // FIX: Langsung return hasil api.get
-      return await api.get(`/api/showtimes?film_id=${filmId}`);
+      const { data, error } = await supabase
+        .from('showtimes')
+        .select('*, studio:studios(*)')
+        .eq('film_id', filmId)
+        .order('date', { ascending: true })
+        .order('time', { ascending: true });
+      
+      if (error) throw error;
+      return data || [];
     },
     enabled: !!filmId,
   });

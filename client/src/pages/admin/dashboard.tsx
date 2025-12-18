@@ -3,15 +3,23 @@ import { Film, Calendar, Clock, CheckSquare } from 'lucide-react';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AdminSidebar } from '@/components/admin-sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { api } from '@/lib/supabase';
-import { Link } from 'wouter';
+import { supabase } from '@/lib/supabase';
 
 export default function AdminDashboard() {
   const { data: stats } = useQuery({
     queryKey: ['/api/admin/stats'],
     queryFn: async () => {
-      // Menggunakan endpoint yang sudah Anda buat di server/routes.ts
-      return await api.get('/api/admin/stats');
+      const [filmsRes, showtimesRes, bookingsRes] = await Promise.all([
+        supabase.from('films').select('*', { count: 'exact', head: true }),
+        supabase.from('showtimes').select('*', { count: 'exact', head: true }),
+        supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'Pending'),
+      ]);
+
+      return {
+        totalFilms: filmsRes.count || 0,
+        activeShowtimes: showtimesRes.count || 0,
+        pendingBookings: bookingsRes.count || 0,
+      };
     },
   });
 
@@ -50,7 +58,7 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold mb-2">Welcome to Admin Panel</h2>
-                <p className="text-muted-foreground">Manage your cinema operations (Local DB Mode)</p>
+                <p className="text-muted-foreground">Manage your cinema operations</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -74,7 +82,7 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Link href="/admin/films" className="block p-4 border rounded-lg hover-elevate active-elevate-2">
+                    <a href="/admin/films" className="block p-4 border rounded-lg hover-elevate active-elevate-2" data-testid="link-manage-films">
                       <div className="flex items-center gap-3">
                         <Film className="h-8 w-8 text-primary" />
                         <div>
@@ -82,8 +90,8 @@ export default function AdminDashboard() {
                           <p className="text-sm text-muted-foreground">Add, edit, or remove films</p>
                         </div>
                       </div>
-                    </Link>
-                    <Link href="/admin/showtimes" className="block p-4 border rounded-lg hover-elevate active-elevate-2">
+                    </a>
+                    <a href="/admin/showtimes" className="block p-4 border rounded-lg hover-elevate active-elevate-2" data-testid="link-schedule-showtimes">
                       <div className="flex items-center gap-3">
                         <Calendar className="h-8 w-8 text-primary" />
                         <div>
@@ -91,8 +99,8 @@ export default function AdminDashboard() {
                           <p className="text-sm text-muted-foreground">Create screening schedules</p>
                         </div>
                       </div>
-                    </Link>
-                    <Link href="/admin/bookings" className="block p-4 border rounded-lg hover-elevate active-elevate-2">
+                    </a>
+                    <a href="/admin/bookings" className="block p-4 border rounded-lg hover-elevate active-elevate-2" data-testid="link-review-bookings">
                       <div className="flex items-center gap-3">
                         <CheckSquare className="h-8 w-8 text-primary" />
                         <div>
@@ -100,7 +108,7 @@ export default function AdminDashboard() {
                           <p className="text-sm text-muted-foreground">Confirm or reject tickets</p>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   </div>
                 </CardContent>
               </Card>

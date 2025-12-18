@@ -1,3 +1,7 @@
+import { createClient } from '@supabase/supabase-js';
+import { config } from '../config';
+
+export const supabase = createClient(config.supabase.url, config.supabase.anonKey);
 
 export interface Profile {
   id: string;
@@ -65,47 +69,3 @@ export interface SeatStatus {
   status: 'Available' | 'Pending' | 'Booked';
   seat?: Seat;
 }
-
-// API Helper pengganti Supabase Client
-export const api = {
-  get: async (url: string) => {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('API Error');
-    return res.json();
-  },
-  post: async (url: string, data: any) => {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'API Error');
-    }
-    return res.json();
-  },
-  delete: async (url: string) => {
-    const res = await fetch(url, { method: 'DELETE' });
-    if (!res.ok) throw new Error('API Error');
-    return res.json();
-  },
-  patch: async (url: string, data: any) => {
-    const res = await fetch(url, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!res.ok) throw new Error('API Error');
-    return res.json();
-  }
-};
-
-// Mock export agar file lain tidak error saat import
-export const supabase = {
-  from: () => ({ select: () => ({ eq: () => ({ single: () => {} }) }) }),
-  auth: {
-    getSession: () => Promise.resolve({ data: { session: null } }),
-    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
-  }
-};
