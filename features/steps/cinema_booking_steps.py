@@ -409,13 +409,14 @@ def step_impl(context, film_title):
 @when('I filter by genre "{genre}"')
 def step_impl(context, genre):
     selects = context.driver.find_elements(By.CSS_SELECTOR, "select")
-    for select in selects:
-        options = select.find_elements(By.TAG_NAME, "option")
-        for option in options:
-            if genre in option.text:
-                option.click()
-                time.sleep(2)
-                return
+    genre_select = selects[0]
+    options = genre_select.find_elements(By.TAG_NAME, "option")
+    for option in options:
+        if genre.lower() in option.text.lower():
+            option.click()
+            time.sleep(2)
+            return
+    assert False, f"Genre '{genre}' not found in genre select options"
 
 @then('I should see only "{genre}" films')
 def step_impl(context, genre):
@@ -429,13 +430,14 @@ def step_impl(context, genre):
 @when('I sort by "{sort_option}"')
 def step_impl(context, sort_option):
     selects = context.driver.find_elements(By.CSS_SELECTOR, "select")
-    for select in selects:
-        options = select.find_elements(By.TAG_NAME, "option")
-        for option in options:
-            if sort_option in option.text:
-                option.click()
-                time.sleep(2)
-                return
+    sort_select = selects[1]
+    options = sort_select.find_elements(By.TAG_NAME, "option")
+    for option in options:
+        if sort_option.lower() in option.text.lower():
+            option.click()
+            time.sleep(2)
+            return
+    assert False, f"Sort option '{sort_option}' not found in sort select options"
 
 @then('films should be ordered by duration ascending')
 def step_impl(context):
@@ -526,7 +528,11 @@ def step_impl(context):
     assert len(table_rows) > 0
     found = False
     for row in table_rows:
-        if "Wicked" in row.text and ("2025-12-25" in row.text or "Dec 25, 2025" in row.text):
+        row_text = row.text
+        # Validasi: film, tanggal, DAN jam
+        if ("Wicked" in row_text and
+            ("2025-12-25" in row_text or "Dec 25, 2025" in row_text) and
+            "14:00" in row_text):
             found = True
             break
     assert found

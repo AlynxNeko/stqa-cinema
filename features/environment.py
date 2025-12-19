@@ -20,6 +20,7 @@ def before_all(context):
 
     options = webdriver.ChromeOptions()
     options.add_argument("--no-sandbox")
+    # options.add_argument("--headless")
     context.driver = webdriver.Chrome(options=options)
 
 def before_scenario(context, scenario):
