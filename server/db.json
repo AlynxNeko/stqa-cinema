@@ -13,6 +13,76 @@
       "password": "userbiasa",
       "name": "User Biasa",
       "role": "user"
+    },
+    {
+      "email": "cath@email.com",
+      "password": "123456",
+      "name": "cath",
+      "id": "2lx9tgd2q",
+      "role": "user"
+    },
+    {
+      "email": "testuser@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "06v5njozz",
+      "role": "user"
+    },
+    {
+      "email": "testuser2@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "cft1aqm9z",
+      "role": "user"
+    },
+    {
+      "email": "testuser3@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "pxcns0k17",
+      "role": "user"
+    },
+    {
+      "email": "testuser4@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "6iq5qildm",
+      "role": "user"
+    },
+    {
+      "email": "testuser5@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "bao1kims5",
+      "role": "user"
+    },
+    {
+      "email": "testuser7@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "pqac097av",
+      "role": "user"
+    },
+    {
+      "email": "testuser8@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "6zylqh7v4",
+      "role": "user"
+    },
+    {
+      "email": "fawefa@ea.com",
+      "password": "123456",
+      "name": "ada",
+      "id": "1fiww07ey",
+      "role": "user"
+    },
+    {
+      "email": "testuser9@example.com",
+      "password": "test123",
+      "name": "Test User",
+      "id": "828xib4c1",
+      "role": "user"
     }
   ],
   "films": [
@@ -21,7 +91,7 @@
       "title": "Zootopia 2",
       "genre": "Animation, Family, Comedy, Adventure",
       "duration_min": 107,
-      "description": "After cracking the biggest case in Zootopia's history, rookie cops Judy Hopps and Nick Wilde find themselves on the twisting trail of a great mystery when Gary De’Snake arrives and turns the animal metropolis upside down. To crack the case, Judy and Nick must go undercover to unexpected new parts of town, where their growing partnership is tested like never before.",
+      "description": "After cracking the biggest case in Zootopia's history, rookie cops Judy Hopps and Nick Wilde find themselves on the twisting trail of a great mystery when Gary De\u2019Snake arrives and turns the animal metropolis upside down. To crack the case, Judy and Nick must go undercover to unexpected new parts of town, where their growing partnership is tested like never before.",
       "poster_url": "https://image.tmdb.org/t/p/w500/oJ7g2CifqpStmoYQyaLQgEU32qO.jpg",
       "rating": 7.7
     },
@@ -84,7 +154,7 @@
       "title": "Sisu: Road to Revenge",
       "genre": "Action, War",
       "duration_min": 89,
-      "description": "Returning to the house where his family was brutally murdered during the war, 'the man who refuses to die' dismantles it, loads it on a truck, and is determined to rebuild it somewhere safe in their honor. When the Red Army commander who killed his family comes back hellbent on finishing the job, a relentless, eye-popping cross-country chase ensues — a fight to the death.",
+      "description": "Returning to the house where his family was brutally murdered during the war, 'the man who refuses to die' dismantles it, loads it on a truck, and is determined to rebuild it somewhere safe in their honor. When the Red Army commander who killed his family comes back hellbent on finishing the job, a relentless, eye-popping cross-country chase ensues \u2014 a fight to the death.",
       "poster_url": "https://image.tmdb.org/t/p/w500/vUiAm0jbrPgbUDCOhRKsvdT0u5h.jpg",
       "rating": 7.8
     },
@@ -111,7 +181,7 @@
       "title": "Agak Laen: Menyala Pantiku!",
       "genre": "Comedy, Crime, Drama, Mystery",
       "duration_min": 119,
-      "description": "After repeatedly failing their missions, Detectives Bene, Boris, Jegel, and Oki are given one last chance: to go undercover in a nursing home in search of a fugitive wanted for the murder of the mayor’s child.",
+      "description": "After repeatedly failing their missions, Detectives Bene, Boris, Jegel, and Oki are given one last chance: to go undercover in a nursing home in search of a fugitive wanted for the murder of the mayor\u2019s child.",
       "poster_url": "https://image.tmdb.org/t/p/w500/48Lbiwc8QiaGXhpfHkWExLgIcaa.jpg",
       "rating": 8.5
     },
@@ -201,7 +271,7 @@
       "title": "Nouvelle Vague",
       "genre": "Comedy, Drama, History",
       "duration_min": 106,
-      "description": "After writing for Cahiers du cinéma, a young Jean-Luc Godard decides making films is the best film criticism. He convinces producer Georges de Beauregard to fund a low-budget feature, and creates a treatment with fellow New Wave filmmaker François Truffaut about a gangster couple. The result? Breathless, one of the first features of the Nouvelle Vague era of French cinema.",
+      "description": "After writing for Cahiers du cin\u00e9ma, a young Jean-Luc Godard decides making films is the best film criticism. He convinces producer Georges de Beauregard to fund a low-budget feature, and creates a treatment with fellow New Wave filmmaker Fran\u00e7ois Truffaut about a gangster couple. The result? Breathless, one of the first features of the Nouvelle Vague era of French cinema.",
       "poster_url": "https://image.tmdb.org/t/p/w500/mNcqF4IBrIV7zitgwM6EnpPRzli.jpg",
       "rating": 7.455
     },
@@ -237,7 +307,7 @@
       "title": "Dhurandhar",
       "genre": "Action, Crime, Thriller, Drama",
       "duration_min": 214,
-      "description": "After the hijacking of IC-814 in 1999 and the Parliament attack in 2001, India’s Intelligence Bureau Chief, Ajay Sanyal devised an indomitable mission to intrude and rupture the terrorist network in Pakistan, by infiltrating the underworld mafia of Karachi. A 20-year-old boy from Punjab, held captive for a revenge crime, is identified by Sanyal to execute his elaborate plan.",
+      "description": "After the hijacking of IC-814 in 1999 and the Parliament attack in 2001, India\u2019s Intelligence Bureau Chief, Ajay Sanyal devised an indomitable mission to intrude and rupture the terrorist network in Pakistan, by infiltrating the underworld mafia of Karachi. A 20-year-old boy from Punjab, held captive for a revenge crime, is identified by Sanyal to execute his elaborate plan.",
       "poster_url": "https://image.tmdb.org/t/p/w500/q7gD37kEOmzOeGXwhbYvfpwl9kU.jpg",
       "rating": 0
     },
@@ -282,7 +352,7 @@
       "title": "Kiss of the Spider Woman",
       "genre": "Romance, Music, Drama, Thriller",
       "duration_min": 128,
-      "description": "Valentín, a political prisoner, shares a cell with Molina, a window dresser convicted of public indecency. The two form an unlikely bond as Molina recounts the plot of a Hollywood musical starring his favorite silver screen diva, Ingrid Luna.",
+      "description": "Valent\u00edn, a political prisoner, shares a cell with Molina, a window dresser convicted of public indecency. The two form an unlikely bond as Molina recounts the plot of a Hollywood musical starring his favorite silver screen diva, Ingrid Luna.",
       "poster_url": "https://image.tmdb.org/t/p/w500/c8zDeDq0Uatjly6Fh4ycmWuoLYy.jpg",
       "rating": 6.1
     },
@@ -318,7 +388,7 @@
       "title": "Omaha",
       "genre": "Drama",
       "duration_min": 83,
-      "description": "After a family tragedy, siblings Ella and Charlie are unexpectedly woken up by their dad and taken on a journey across the country, experiencing a world they’ve never seen before. As their adventure unfolds, Ella begins to understand that things might not be what they seem.",
+      "description": "After a family tragedy, siblings Ella and Charlie are unexpectedly woken up by their dad and taken on a journey across the country, experiencing a world they\u2019ve never seen before. As their adventure unfolds, Ella begins to understand that things might not be what they seem.",
       "poster_url": "https://image.tmdb.org/t/p/w500/9DvxDgtFI5AiTMABpUBsemCjH7s.jpg",
       "rating": 0
     },
@@ -327,7 +397,7 @@
       "title": "The First Ride",
       "genre": "Comedy, Drama, Adventure",
       "duration_min": 117,
-      "description": "Four lifelong friends—Tae-jeong, Do-jin, Yeon-min, and Geum-bok—dreamed of an epic trip abroad, but life got in the way. Years later, older but not necessarily wiser, they finally embark on their long-overdue journey. Planned as a carefree getaway, however, the trip derails into a whirlwind of unexpected chaos, hilariously absurd detours, and buried emotions resurfacing. As they stumble through misadventures, their first ride together turns into a spectacular journey—one for the ages.",
+      "description": "Four lifelong friends\u2014Tae-jeong, Do-jin, Yeon-min, and Geum-bok\u2014dreamed of an epic trip abroad, but life got in the way. Years later, older but not necessarily wiser, they finally embark on their long-overdue journey. Planned as a carefree getaway, however, the trip derails into a whirlwind of unexpected chaos, hilariously absurd detours, and buried emotions resurfacing. As they stumble through misadventures, their first ride together turns into a spectacular journey\u2014one for the ages.",
       "poster_url": "https://image.tmdb.org/t/p/w500/s2EFPFiDGI6UwLojxmY2gkqXAZS.jpg",
       "rating": 8
     },
@@ -345,7 +415,7 @@
       "title": "A Poet",
       "genre": "Comedy, Drama",
       "duration_min": 120,
-      "description": "Middle-aged and erratic, Oscar is a failed writer who has given up on life. Unemployed and living with family, he wanders the streets of Medellín in a drunken stupor, lamenting the state of literature in his home country, where he has succumbed to the cliché of the tortured artist. However, the opportunity to mentor a young student offers a chance at redemption, if he doesn’t screw it up first.",
+      "description": "Middle-aged and erratic, Oscar is a failed writer who has given up on life. Unemployed and living with family, he wanders the streets of Medell\u00edn in a drunken stupor, lamenting the state of literature in his home country, where he has succumbed to the clich\u00e9 of the tortured artist. However, the opportunity to mentor a young student offers a chance at redemption, if he doesn\u2019t screw it up first.",
       "poster_url": "https://image.tmdb.org/t/p/w500/lfKPWpLIzApjyUJ22igW7iFmRpT.jpg",
       "rating": 7.7
     },
@@ -354,7 +424,7 @@
       "title": "Sosok Ketiga: Lintrik",
       "genre": "Drama, Horror, Thriller",
       "duration_min": 117,
-      "description": "After six months of marriage, Andin begins to notice many oddities in her marriage. From the beginning, Uncle Bagyo suspected the marriage was rushed, and together with Amara—Andin's younger sister who also inherited the mystical arts—he often noticed disturbing, odd signs.  Their suspicions were proven correct when it was revealed that Ario, Andin's husband, had been having a special relationship with Naura, a wealthy woman in their town who was trying to steal Ario completely from Andin using the Lintrik love spell, a dangerous mystical power that dragged Andin and her family into endless supernatural terror. What will happen to Andin and Ario's marriage going forward?",
+      "description": "After six months of marriage, Andin begins to notice many oddities in her marriage. From the beginning, Uncle Bagyo suspected the marriage was rushed, and together with Amara\u2014Andin's younger sister who also inherited the mystical arts\u2014he often noticed disturbing, odd signs.  Their suspicions were proven correct when it was revealed that Ario, Andin's husband, had been having a special relationship with Naura, a wealthy woman in their town who was trying to steal Ario completely from Andin using the Lintrik love spell, a dangerous mystical power that dragged Andin and her family into endless supernatural terror. What will happen to Andin and Ario's marriage going forward?",
       "poster_url": "https://image.tmdb.org/t/p/w500/oVCHHviQsspqEu4FyT4nFbtvWNH.jpg",
       "rating": 5.5
     },
@@ -387,7 +457,7 @@
     },
     {
       "id": "42",
-      "title": "Tinā",
+      "title": "Tin\u0101",
       "genre": "Drama, Comedy",
       "duration_min": 125,
       "description": "A woman grieving her daughter's death in the Christchurch earthquakes, becomes a substitute teacher at an elite private school. Unexpectedly, she discovers students lacking guidance and care, prompting her to provide inspiration and support.",
@@ -471,7 +541,7 @@
       "title": "Lilies Not for Me",
       "genre": "Drama, History",
       "duration_min": 99,
-      "description": "Haunted by a forbidden affair, a young man in a 1920s “conversion” clinic finds hope in a compassionate nurse who challenges the era’s cruel norms.",
+      "description": "Haunted by a forbidden affair, a young man in a 1920s \u201cconversion\u201d clinic finds hope in a compassionate nurse who challenges the era\u2019s cruel norms.",
       "poster_url": "https://image.tmdb.org/t/p/w500/wFTzjBHiLhsYhBXEFk0J1GwOnaU.jpg",
       "rating": 6.1
     },
@@ -498,7 +568,7 @@
       "title": "Magellan",
       "genre": "Drama, History",
       "duration_min": 163,
-      "description": "In the 16th century, Ferdinand Magellan, a young and ambitious Portuguese navigator, rebels against the power of the King of Portugal, who doesn’t support his dream of discovering the world, and persuades the Spanish monarchy to fund his bold expedition to the fabled lands of the East.",
+      "description": "In the 16th century, Ferdinand Magellan, a young and ambitious Portuguese navigator, rebels against the power of the King of Portugal, who doesn\u2019t support his dream of discovering the world, and persuades the Spanish monarchy to fund his bold expedition to the fabled lands of the East.",
       "poster_url": "https://image.tmdb.org/t/p/w500/kA5trayJ6UICmTvSGrtWRftNRUJ.jpg",
       "rating": 0
     },
@@ -534,7 +604,7 @@
       "title": "Hot Milk",
       "genre": "Drama",
       "duration_min": 93,
-      "description": "Rose and her daughter Sofia travel to the Spanish seaside town of Almería to consult with the shamanic Dr. Gomez, a physician who could possibly hold the cure to Rose’s mystery illness, which has left her bound to a wheelchair. But in the sultry atmosphere of this sun-bleached town Sofia, who has been trapped by her mother’s illness all her life, finally starts to shed her inhibitions, enticed by the persuasive charms of enigmatic traveller Ingrid.",
+      "description": "Rose and her daughter Sofia travel to the Spanish seaside town of Almer\u00eda to consult with the shamanic Dr. Gomez, a physician who could possibly hold the cure to Rose\u2019s mystery illness, which has left her bound to a wheelchair. But in the sultry atmosphere of this sun-bleached town Sofia, who has been trapped by her mother\u2019s illness all her life, finally starts to shed her inhibitions, enticed by the persuasive charms of enigmatic traveller Ingrid.",
       "poster_url": "https://image.tmdb.org/t/p/w500/rIIPeDBAr3eSKPaqCawxFywUHAU.jpg",
       "rating": 6
     },
@@ -543,7 +613,7 @@
       "title": "Baby",
       "genre": "Drama, Romance",
       "duration_min": 107,
-      "description": "After being released from a juvenile detention center, Wellington finds himself alone and adrift on the streets of São Paulo, without any contact from his parents and lacking the resources to rebuild his life. During a visit to a porn theater, he encounters Ronaldo, a mature man, who teaches him new ways of surviving. Gradually, their relationship turns into a conflicting passion, oscillating between exploitation and protection, jealousy and complicity.",
+      "description": "After being released from a juvenile detention center, Wellington finds himself alone and adrift on the streets of S\u00e3o Paulo, without any contact from his parents and lacking the resources to rebuild his life. During a visit to a porn theater, he encounters Ronaldo, a mature man, who teaches him new ways of surviving. Gradually, their relationship turns into a conflicting passion, oscillating between exploitation and protection, jealousy and complicity.",
       "poster_url": "https://image.tmdb.org/t/p/w500/2vOI8fX71B6QP4teu50Ml5DnKBg.jpg",
       "rating": 7.4
     },
@@ -552,7 +622,7 @@
       "title": "Riba",
       "genre": "Horror, Thriller",
       "duration_min": 95,
-      "description": "A young father, Sugi, once lived a peaceful life with his loving wife Rohmah, their two children Dimas and Bening, and his mother-in-law Lastri. Everything falls apart when Sugi gets trapped in a high-interest debt to a ruthless loan shark.  Under pressure and threats, Sugi gets involved in a dark ritual called “Getih Anak,” introduced by his old friend Muji. The ritual promises instant wealth, but every drop of blood spilled invites a real and binding curse. Soon, terrifying events begin to happen inside the house, haunting the whole family.  Not everything that looks easy brings blessing, and even a simple choice can have a heavy price. Now Sugi must face the consequences of his own fatal decision.",
+      "description": "A young father, Sugi, once lived a peaceful life with his loving wife Rohmah, their two children Dimas and Bening, and his mother-in-law Lastri. Everything falls apart when Sugi gets trapped in a high-interest debt to a ruthless loan shark.  Under pressure and threats, Sugi gets involved in a dark ritual called \u201cGetih Anak,\u201d introduced by his old friend Muji. The ritual promises instant wealth, but every drop of blood spilled invites a real and binding curse. Soon, terrifying events begin to happen inside the house, haunting the whole family.  Not everything that looks easy brings blessing, and even a simple choice can have a heavy price. Now Sugi must face the consequences of his own fatal decision.",
       "poster_url": "https://image.tmdb.org/t/p/w500/oolY3bqXCc4XhniiVJohCvuVN3c.jpg",
       "rating": 0
     },
@@ -597,7 +667,7 @@
       "title": "Smothered",
       "genre": "Drama, Mystery, Thriller",
       "duration_min": 99,
-      "description": "After surviving an accident, Alif, a micro-painting artist, is told by his doctor that his memory hasn’t fully recovered. When a woman claiming to be his mother comes to visit, Alif begins to sense something is wrong—he doesn’t recognize her face, and he suspects she might not be his mother.",
+      "description": "After surviving an accident, Alif, a micro-painting artist, is told by his doctor that his memory hasn\u2019t fully recovered. When a woman claiming to be his mother comes to visit, Alif begins to sense something is wrong\u2014he doesn\u2019t recognize her face, and he suspects she might not be his mother.",
       "poster_url": "https://image.tmdb.org/t/p/w500/5qX69jou3zFKjdyp4b4tAK0jGfD.jpg",
       "rating": 6.7
     },
@@ -615,7 +685,7 @@
       "title": "j-hope Tour 'HOPE ON THE STAGE' THE MOVIE",
       "genre": "Documentary, Music",
       "duration_min": 90,
-      "description": "Witness the full spectrum of j-hope's artistry, from the iconic tracks of his solo album “Jack In The Box” and special album “HOPE ON THE STREET VOL.1” to the world premiere of “Killin’ It Girl.” Experience his spectacular live performances on the big screen, complete with exclusive behind-the-scenes moments and special stages featuring Jin, Jung Kook, and Crush. Relive the unforgettable, sparkling moment between j-hope and ARMY - j-hope’s true “Safety Zone”- and experience the final stage of his first solo world tour in HOPE ON THE STAGE THE MOVIE.",
+      "description": "Witness the full spectrum of j-hope's artistry, from the iconic tracks of his solo album \u201cJack In The Box\u201d and special album \u201cHOPE ON THE STREET VOL.1\u201d to the world premiere of \u201cKillin\u2019 It Girl.\u201d Experience his spectacular live performances on the big screen, complete with exclusive behind-the-scenes moments and special stages featuring Jin, Jung Kook, and Crush. Relive the unforgettable, sparkling moment between j-hope and ARMY - j-hope\u2019s true \u201cSafety Zone\u201d- and experience the final stage of his first solo world tour in HOPE ON THE STAGE THE MOVIE.",
       "poster_url": "https://image.tmdb.org/t/p/w500/g0DUaDV8Vn61MU62SVmmWpyeViV.jpg",
       "rating": 10
     },
@@ -651,7 +721,7 @@
       "title": "Belum Ada Judul",
       "genre": "Drama",
       "duration_min": 88,
-      "description": "Umar Bakri, a respected high school teacher, faces public outrage after a video of him slapping a student goes viral. Despite pressure to explain, he remains silent to protect a secret that could ruin his students' futures. A touching drama about sacrifice, morality, and a teacher’s unwavering dedication.",
+      "description": "Umar Bakri, a respected high school teacher, faces public outrage after a video of him slapping a student goes viral. Despite pressure to explain, he remains silent to protect a secret that could ruin his students' futures. A touching drama about sacrifice, morality, and a teacher\u2019s unwavering dedication.",
       "poster_url": "https://image.tmdb.org/t/p/w500/zIqfywNXyYXZElo9ZWhLEidKmpw.jpg",
       "rating": 7
     },
@@ -660,16 +730,16 @@
       "title": "Ozora: Penganiayaan Brutal Penguasa Jaksel",
       "genre": "Crime, Drama, Thriller",
       "duration_min": 109,
-      "description": "Jonathan has to fight to save the life of his son, David Ozora, who was assaulted by the son of a High-Ranking Government Official, until he fell into a Coma. David Ozora’s condition then becomes Viral, and together with all the people of Indonesia of various Religions and beliefs, they hold a Prayer together hoping for a miracle for the recovery of the Child. Along with his two friends, Mellissa and Rustam, Jonathan continues to fight for justice, where Dennis, the assailant, continues to receive help and leniency from a system whose integrity is questioned in enforcing the Law, due to the role and position of his father who claims to be the Ruler of South Jakarta.",
+      "description": "Jonathan has to fight to save the life of his son, David Ozora, who was assaulted by the son of a High-Ranking Government Official, until he fell into a Coma. David Ozora\u2019s condition then becomes Viral, and together with all the people of Indonesia of various Religions and beliefs, they hold a Prayer together hoping for a miracle for the recovery of the Child. Along with his two friends, Mellissa and Rustam, Jonathan continues to fight for justice, where Dennis, the assailant, continues to receive help and leniency from a system whose integrity is questioned in enforcing the Law, due to the role and position of his father who claims to be the Ruler of South Jakarta.",
       "poster_url": "https://image.tmdb.org/t/p/w500/7y7PEbQ3mGr8utlx18xcBq3nj9H.jpg",
       "rating": 0
     },
     {
       "id": "73",
-      "title": "G-DRAGON IN CINEMA [Übermensch]",
+      "title": "G-DRAGON IN CINEMA [\u00dcbermensch]",
       "genre": "Documentary, Music",
       "duration_min": 106,
-      "description": "After eight years, the icon of a generation roars back with an epic world tour —ÜBERMENSCH. Every beat, every breath, every moment that will redefine his legacy bursts onto the big screen.  From the anthems that shook the world—\"Crooked,\" \"PO￦ER,\" \"HEARTBREAKER\" —to an epic setlist spanning his most iconic hits, joined by an all-star guest lineup including TAEYANG, DAESUNG, CL, and more. Feel the raw energy, the fire, the unrepeatable magic—captured live and unleashed through SCREENX, 4DX, and ULTRA 4DX.",
+      "description": "After eight years, the icon of a generation roars back with an epic world tour \u2014\u00dcBERMENSCH. Every beat, every breath, every moment that will redefine his legacy bursts onto the big screen.\u202f From the anthems that shook the world\u2014\"Crooked,\" \"PO\uffe6ER,\" \"HEARTBREAKER\" \u2014to an epic setlist spanning his most iconic hits, joined by an all-star guest lineup including TAEYANG, DAESUNG, CL, and more. Feel the raw energy, the fire, the unrepeatable magic\u2014captured live and unleashed through SCREENX, 4DX, and ULTRA 4DX.",
       "poster_url": "https://image.tmdb.org/t/p/w500/9CpFMgqJXuv6rGkj55j28RD4cv8.jpg",
       "rating": 0
     },
@@ -678,7 +748,7 @@
       "title": "Badik",
       "genre": "Drama, Action, Mystery",
       "duration_min": 84,
-      "description": "“Badik” tells the story of two brothers, the children of a martial arts teacher in a remote part of Makassar, who follow different paths in life.",
+      "description": "\u201cBadik\u201d tells the story of two brothers, the children of a martial arts teacher in a remote part of Makassar, who follow different paths in life.",
       "poster_url": "https://image.tmdb.org/t/p/w500/unyVl7v4vLAccZstyKJ24Aki8ah.jpg",
       "rating": 0
     },
@@ -696,7 +766,7 @@
       "title": "MONSTA X : CONNECT X IN CINEMAS",
       "genre": "Music, Documentary",
       "duration_min": 118,
-      "description": "In July 2025, MONSTA X set the KSPO DOME ablaze over three unforgettable days with their show 2025 MONSTA X CONNECT X. From the powerful live band session and a setlist packed with spectacular performances, to never-before-seen behind-the-scenes footage of the preparation process, and exclusive, heartfelt interviews where the members reflect on their intense 10-year journey—this film captures it all. A chronicle of a decade-long story written together by MONSTA X and MONBEBE.",
+      "description": "In July 2025, MONSTA X set the KSPO DOME ablaze over three unforgettable days with their show 2025 MONSTA X CONNECT X. From the powerful live band session and a setlist packed with spectacular performances, to never-before-seen behind-the-scenes footage of the preparation process, and exclusive, heartfelt interviews where the members reflect on their intense 10-year journey\u2014this film captures it all. A chronicle of a decade-long story written together by MONSTA X and MONBEBE.",
       "poster_url": "https://image.tmdb.org/t/p/w500/48oi07Yc87mUGiXroVsmLBmZRls.jpg",
       "rating": 0
     },
@@ -768,7 +838,7 @@
       "title": "The Shape of Invisible Skies",
       "genre": "Adventure, Drama, Fantasy, Romance, Music",
       "duration_min": 120,
-      "description": "Seven shapes. Same sky. Lost, found, and lost again. Two souls meet across seven lifetimes — always in the spaces between.",
+      "description": "Seven shapes. Same sky. Lost, found, and lost again. Two souls meet across seven lifetimes \u2014 always in the spaces between.",
       "poster_url": "https://image.tmdb.org/t/p/w500/dqZihdEq3xO8ZA4KlZcD0XOXUFx.jpg",
       "rating": 0
     },
@@ -804,7 +874,7 @@
       "title": "Cloudcatchers",
       "genre": "Romance, Drama",
       "duration_min": 6,
-      "description": "A broken heart. A wooden horse. One woman’s rememberance at the water’s edge summons wild steeds to prove that true devotion never washes away",
+      "description": "A broken heart. A wooden horse. One woman\u2019s rememberance at the water\u2019s edge summons wild steeds to prove that true devotion never washes away",
       "poster_url": "https://image.tmdb.org/t/p/w500/2C80beKyHRw6BsEqVWbdCpXeGgl.jpg",
       "rating": 0
     },
@@ -813,7 +883,7 @@
       "title": "Tami",
       "genre": "Drama",
       "duration_min": 3,
-      "description": "Through her father's painting of herself, Tami feels close to him—even if reality says otherwise.",
+      "description": "Through her father's painting of herself, Tami feels close to him\u2014even if reality says otherwise.",
       "poster_url": "https://image.tmdb.org/t/p/w500/2CtQrvhdHlyKoaRD5EJMYr4tflr.jpg",
       "rating": 6
     },
@@ -840,94 +910,6 @@
     }
   ],
   "showtimes": [
-    {
-      "id": "st_1",
-      "film_id": "1",
-      "studio_id": "1",
-      "date": "2025-12-27",
-      "time": "13:45",
-      "price": 50000
-    },
-    {
-      "id": "st_2",
-      "film_id": "1",
-      "studio_id": "1",
-      "date": "2025-12-30",
-      "time": "14:15",
-      "price": 50000
-    },
-    {
-      "id": "st_3",
-      "film_id": "1",
-      "studio_id": "1",
-      "date": "2026-01-20",
-      "time": "15:00",
-      "price": 55000
-    },
-    {
-      "id": "st_4",
-      "film_id": "2",
-      "studio_id": "2",
-      "date": "2026-01-05",
-      "time": "13:30",
-      "price": 55000
-    },
-    {
-      "id": "st_5",
-      "film_id": "2",
-      "studio_id": "2",
-      "date": "2025-12-25",
-      "time": "18:45",
-      "price": 55000
-    },
-    {
-      "id": "st_6",
-      "film_id": "3",
-      "studio_id": "2",
-      "date": "2026-01-31",
-      "time": "18:15",
-      "price": 50000
-    },
-    {
-      "id": "st_7",
-      "film_id": "3",
-      "studio_id": "2",
-      "date": "2025-12-29",
-      "time": "15:30",
-      "price": 50000
-    },
-    {
-      "id": "st_8",
-      "film_id": "4",
-      "studio_id": "2",
-      "date": "2025-12-28",
-      "time": "17:45",
-      "price": 50000
-    },
-    {
-      "id": "st_9",
-      "film_id": "4",
-      "studio_id": "1",
-      "date": "2025-12-30",
-      "time": "19:30",
-      "price": 55000
-    },
-    {
-      "id": "st_10",
-      "film_id": "5",
-      "studio_id": "2",
-      "date": "2026-01-03",
-      "time": "12:45",
-      "price": 55000
-    },
-    {
-      "id": "st_11",
-      "film_id": "5",
-      "studio_id": "1",
-      "date": "2026-01-22",
-      "time": "17:45",
-      "price": 55000
-    },
     {
       "id": "st_12",
       "film_id": "6",
@@ -2607,71 +2589,467 @@
       "date": "2026-01-16",
       "time": "16:30",
       "price": 50000
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "lqutkkssq"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "2e7t9ulfv"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "55ogm17z0"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "d844it7rp"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "uciwgcmid"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "cxghngfl7"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "m0oo3rnc5"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "lv3xem0k1"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "6qi9twpbo"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "3j6veu8z0"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "4qmynskeg"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "b2b3953nk"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "2ptnrqclo"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "9pyro8714"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "0y84bxoki"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "jfoo74ksv"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "fwsru3stf"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "oubtx8xbl"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "7nrwsl3la"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "j8w0ksde4"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "oz33mmrv1"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "idhyka713"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "mw84ei9ap"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "dg08ajoth"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "f1eers8xd"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "c4raposjt"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "0o9i3owjn"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "4g1a5z0jn"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "sd3cx7lta"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "n8vk5jz2b"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "oy5dvu16z"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "wm1bxnyr6"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "1t0424bxk"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "tnoukhzqb"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "b47zi54a2"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "qzg7relww"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "4uk4v650t"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "i534fu5pg"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "rluuf99fs"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "f3l653znd"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "41ymmgpuc"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "flwgkw2zj"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "gkmpalgu6"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "khi3i6pqb"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "vk8hi6ulx"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "51225-02-20",
+      "time": "14:00",
+      "price": 50000,
+      "id": "zcj27df0c"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "84csyz849"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "61sgw49pf"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "9e1s0uruo"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "u229egepv"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "q286qz6uo"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "wyqxf4gug"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "giv9u3rhj"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "cje06gdos"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "q9iam9c3d"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "iwxrng1ol"
+    },
+    {
+      "film_id": "3",
+      "studio_id": "1",
+      "date": "2025-12-25",
+      "time": "14:00",
+      "price": 50000,
+      "id": "c3jebwoj0"
     }
   ],
-  "bookings": [
-    {
-      "id": "48kjiyvt4",
-      "user_id": "user-id",
-      "showtime_id": "st_26",
-      "status": "Rejected",
-      "payment_proof_url": "https://placehold.co/400x600?text=Proof+of+User Biasa",
-      "total_price": 165000,
-      "created_at": "2025-12-10T07:20:57.087Z"
-    }
-  ],
-  "seat_statuses": [
-    {
-      "id": "rgzcjjce8",
-      "seat_id": "1-A2",
-      "showtime_id": "st_26",
-      "status": "Available"
-    },
-    {
-      "id": "s20t9fwka",
-      "seat_id": "1-A4",
-      "showtime_id": "st_26",
-      "status": "Available"
-    },
-    {
-      "id": "qfdfqdp2a",
-      "seat_id": "1-A5",
-      "showtime_id": "st_26",
-      "status": "Available"
-    }
-  ],
-  "booking_seats": [
-    {
-      "id": "wq2bal720",
-      "booking_id": "4j5gkx10c",
-      "seat_id": "1_A3"
-    },
-    {
-      "id": "irw90tk2m",
-      "booking_id": "4j5gkx10c",
-      "seat_id": "1_A5"
-    },
-    {
-      "id": "dicl3to8t",
-      "booking_id": "4j5gkx10c",
-      "seat_id": "1_A7"
-    },
-    {
-      "id": "9l2fdwqbs",
-      "booking_id": "48kjiyvt4",
-      "seat_id": "1-A2"
-    },
-    {
-      "id": "fhmla5uke",
-      "booking_id": "48kjiyvt4",
-      "seat_id": "1-A4"
-    },
-    {
-      "id": "1lzrxvlv0",
-      "booking_id": "48kjiyvt4",
-      "seat_id": "1-A5"
-    }
-  ],
+  "bookings": [],
+  "seat_statuses": [],
+  "booking_seats": [],
   "seats": [
     {
       "id": "1_A1",
